@@ -26,6 +26,7 @@ Millennium Dawn のモジュール式装備デザイナー上に追加し、
 | [`PLAN.md`](./PLAN.md) | やりたいことの整理 |
 | [`SPEC.md`](./SPEC.md) | 仕様 |
 | [`TODO.md`](./TODO.md) | タスク管理 |
+| [`HANDOFF.md`](./HANDOFF.md) | Claude Code/Codex間の申し送り(判断待ち・引き継ぎ) |
 | [`KNOWLEDGE.md`](./KNOWLEDGE.md) | 学び・地雷回避ノート |
 | [`DATABASE.md`](./DATABASE.md) | 兵器の根拠台帳(本リポジトリ初期版には未収録、後で作成) |
 | [`INSTRUCTION_FOR_DATABASE.md`](./INSTRUCTION_FOR_DATABASE.md) | DATABASE.md 作成のための指示書 |
