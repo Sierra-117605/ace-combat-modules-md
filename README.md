@@ -18,20 +18,45 @@ Millennium Dawn のモジュール式装備デザイナー上に追加し、
 
 ---
 
-## ドキュメント構成
+## ドキュメント構成(本人向けガイド)
 
-| ファイル | 内容 |
+以下のドキュメントを役割別に整理する。
+**「本人が読む/編集するもの」と「AIが読み書きする運用ファイル」**を
+区別して並べる。
+
+### A. 本人が普段読むもの(プロジェクトの方針・状況)
+
+| ファイル | どんな時に開く | 中身の概要 |
+|----------|----------------|------------|
+| [`MOD_OVERVIEW.md`](./MOD_OVERVIEW.md) | 「このMODって結局何作るんだっけ?」 | プロジェクトの全体像。最初の地図 |
+| [`PLAN.md`](./PLAN.md) | 「何をどうしたいんだっけ?」 | やりたいこと・成功イメージ・対象作品 |
+| [`SPEC.md`](./SPEC.md) | 「どう作るんだっけ?」 | 仕様。HOI4/MD側の実装方針 |
+| [`TODO.md`](./TODO.md) | 「いま何が進んでて何が残ってる?」 | フェーズ別タスク一覧(P0〜P6)。チェックボックス管理 |
+| [`DATABASE.md`](./DATABASE.md) | 「AC作品のどの兵器を実装するか整理されてる場所」 | 兵器ごとの根拠台帳。典拠URL・HOI4実装判定付き |
+
+### B. AI間の引き継ぎ・知見蓄積(本人は時々確認すればOK)
+
+| ファイル | どんな時に開く | 中身の概要 |
+|----------|----------------|------------|
+| [`HANDOFF.md`](./HANDOFF.md) | 「AI同士で何の判断待ちが起きてる?」 | Claude Code ⇔ Codex 間の申し送り。新しいエントリが先頭 |
+| [`KNOWLEDGE.md`](./KNOWLEDGE.md) | 「同じ地雷を二度踏まないための備忘録」 | ハマった事例・既存実装の参照箇所・典拠ルール |
+| [`instructions/`](./instructions/) フォルダ | 「Claude Code が Codex に出している作業指示書一覧」 | 未対応の指示書が置かれる。完了したものは `done/` へ移動 |
+
+### C. AI向けの規約(本人は基本触らない)
+
+| ファイル | 役割 |
 |----------|------|
-| [`MOD_OVERVIEW.md`](./MOD_OVERVIEW.md) | プロジェクト全体の地図 |
-| [`PLAN.md`](./PLAN.md) | やりたいことの整理 |
-| [`SPEC.md`](./SPEC.md) | 仕様 |
-| [`TODO.md`](./TODO.md) | タスク管理 |
-| [`HANDOFF.md`](./HANDOFF.md) | Claude Code/Codex間の申し送り(判断待ち・引き継ぎ) |
-| [`KNOWLEDGE.md`](./KNOWLEDGE.md) | 学び・地雷回避ノート |
-| [`DATABASE.md`](./DATABASE.md) | 兵器の根拠台帳(本リポジトリ初期版には未収録、後で作成) |
-| [`INSTRUCTION_FOR_DATABASE.md`](./INSTRUCTION_FOR_DATABASE.md) | DATABASE.md 作成のための指示書 |
-| [`CLAUDE.md`](./CLAUDE.md) | Claude Code 向け指示書 |
-| [`AGENTS.md`](./AGENTS.md) | 汎用AIエージェント(Codex等)向け指示書 |
+| [`CLAUDE.md`](./CLAUDE.md) | Claude Code 向け指示書(プロジェクトルール) |
+| [`AGENTS.md`](./AGENTS.md) | Codex 等汎用AIエージェント向け指示書。**CLAUDE.md と内容を常に同期** |
+| [`INSTRUCTION_FOR_DATABASE.md`](./INSTRUCTION_FOR_DATABASE.md) | DATABASE.md の書き方ルール。AIが参照する |
+
+### 迷ったらここを見る早見表
+
+- 今やってる作業の状態が知りたい → **TODO.md**
+- AIがなぜ止まってるか知りたい → **HANDOFF.md**(先頭が最新)
+- どの兵器を扱う予定か → **DATABASE.md**
+- このMODが目指すゴール → **MOD_OVERVIEW.md** または **PLAN.md**
+- 過去にハマった話 → **KNOWLEDGE.md**
 
 ---
 
