@@ -127,11 +127,14 @@ Millennium Dawn のモジュール式装備デザイナー上に追加し、
 | 環境 | 役割 |
 |------|------|
 | claude.ai (本会話) | 戦略立案、指示書作成、AC設定の調査補助、PLAN/SPEC/TODO 整理 |
-| Claude Code (PC) | 実コード調査、DATABASE.md 埋め、モジュール実装、ファイル編集 |
-| Codex (PC) | Claude Code と同じプロジェクトルールに従い、依頼により使い分け |
+| Claude Code (PC) | PM/PL。実コード調査、方針決定、Codex向け指示書(`instructions/`)作成、レビュー |
+| Codex (PC) | `instructions/` の指示書に従った実装作業(モジュール実装、DATABASE.md埋め等) |
 
 Claude Code と Codex は基本的に**同じプロジェクトルール**(CLAUDE.md / AGENTS.md)に従う。
-両者を使う理由は、片方の使用量上限に達した時にもう片方で作業継続するため。
+Claude CodeがPM/PL(方針決定・タスク詳細化)を担い、Codexは`instructions/`配下の
+指示書を実行する実装担当という分担を基本とする。
+情報共有は会話の引き継ぎではなく**Git上のファイル**(instructions/、commit履歴)で行う。
+詳細は CLAUDE.md / AGENTS.md の「役割分担とハンドオフ」を参照。
 **同時並行作業は禁止**(コンフリクト防止)。
 
 ---
