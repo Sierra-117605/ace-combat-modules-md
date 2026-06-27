@@ -89,12 +89,15 @@
   - 2026-06-28 本人と協議の上、A〜J を整理して14候補に圧縮
   - F.防御系・MSTM・Dark Fire/Star Fire は除外
   - DATABASE.md 種別④セクション冒頭にサマリ表を追加済み
-- [~] [Claude Code] 種別 ④ 各モジュールの個別エントリ作成(MD β版で○判定裏取り中)
+- [x] [Claude Code] 種別 ④ 各モジュールの個別エントリ作成完了(14件 全件 ○ モジュール化可)
   - MD β版パス: `C:\Program Files (x86)\Steam\steamapps\workshop\content\394360\3374271790\`
-  - 各モジュールについて MD_plane_modules.txt 等で既存類似モジュール・
-    allowed_module_categories を確認後、エントリ化
-- [ ] [Claude Code/Codex] 種別 ④ モジュール構成要素 のセクションを完成
-      → 進捗報告
+  - MD_plane_modules.txt で全カテゴリを確認し、14モジュールすべて
+    既存カテゴリ(plane_avionics / plane_heavy_special_design_arsenal /
+    plane_countermeasures / plane_fighter_weapons / plane_droneswarm_weapon /
+    plane_drone_systems / plane_multipurpose_gun)に追加可能と判定
+  - 種別④の個別エントリ + MD既存カテゴリマッピング表 をDATABASE.mdに記載済み
+- [x] [Claude Code] 種別 ④ モジュール構成要素 のセクションを完成
+  - 統計: 総数 33→47、○ 0→14、対応物あり 7→21
 - [ ] [本人] モジュール構成要素セクションの内容を確認・訂正
 - [ ] [Claude Code/Codex] 種別 ⑤ 実在機 のセクションを完成 → 進捗報告
 - [ ] [本人] 実在機セクションの内容を確認・訂正

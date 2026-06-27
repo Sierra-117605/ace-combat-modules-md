@@ -11,6 +11,41 @@
 
 ---
 
+## 2026-06-28 [Claude Code → 本人 / Codex] 種別④モジュール構成要素 14件を個別エントリ化完了
+
+- ステータス: 完了(レビュー依頼)
+- 関連: `DATABASE.md` 種別④セクション(14エントリ + MD既存カテゴリマッピング表)
+- 作業結果:
+  - MD β版 (`3374271790`) の `MD_plane_modules.txt` (8842行) を読み込み、
+    既存モジュールカテゴリ全34種類を把握
+  - 14モジュール候補すべてについて、MD既存カテゴリへの追加で実装可能と判定
+    (全件 `○ モジュール化可`、MD対応「対応物あり」)
+  - 各エントリには「典拠URL(wiki.gg)」「MD既存カテゴリ名 + 既存定義の行番号」
+    「○判定の根拠」を厳密に明記
+- カテゴリマッピング:
+  | MD既存カテゴリ | 本MOD候補 |
+  |---|---|
+  | `plane_multipurpose_gun`(機関砲枠) | PLSL |
+  | `plane_avionics`(アビオ) | COFFIN、機載AI支援 |
+  | `plane_countermeasures`(ECM枠) | ベルカ系ECM、Cocytus |
+  | `plane_heavy_special_design_arsenal`(アーセナルバード用重特殊兵装) | TLS、HPM、機載レールガン |
+  | `plane_fighter_weapons` / `plane_stealth_mr_weapons` | MPBM、多目的全方位、LSWM |
+  | `plane_droneswarm_weapon`(ドローン群兵器) | 子機搭載ドローン群、群運用攻撃UAV |
+  | `plane_drone_systems`(ドローン制御) | UAVネットワーク制御 |
+- 重要な発見:
+  アーセナルバード(`mothership_equipment`)の `special_slot_type_2` が
+  `plane_heavy_special_design_arsenal` を受け入れているのと**同じ構造**を、
+  本MODでは通常戦闘機側のスロット拡張に応用する。これにより
+  TLS/HPM/レールガン等の「重特殊兵装」が既存戦闘機にも積める。
+- Codexへの引き継ぎ事項(復活時):
+  - 種別④は既に完成。手戻りなく次工程(SPEC.md 精査 / 実装設計)に進める
+  - 種別③架空艦は未着手だが、本人指示「機体本体 × / システム ○」方針を
+    同じく適用すれば短時間で書ける(超兵器側で大型空中艦・アリコーンは
+    既に処理済み、残る対象はシンファクシ級程度)
+  - 種別⑤実在機は別途要相談(MD既存実在機との突き合わせが主)
+
+---
+
 ## 2026-06-28 [本人 → Claude Code] 種別④モジュール候補リストを確定(14個)
 
 - ステータス: 確定済み(DATABASE.md 種別④冒頭にサマリ表追加済み)
