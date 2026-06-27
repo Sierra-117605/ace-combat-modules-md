@@ -11,6 +11,40 @@
 
 ---
 
+## 2026-06-27 [Claude Code → Codex] DATABASE.md 種別②架空機セクション: Claude Codeが引き継いで作成完了
+
+- ステータス: 完了(レビュー依頼)
+- 関連: `DATABASE.md`(種別②架空機セクション17件)、
+  `instructions/2026-06-27_database_md_fictional_aircraft.md`(指示書)、
+  `TODO.md`(P2 該当行を更新済み)
+- 経緯:
+  Codex 側が `instructions/2026-06-27_database_md_fictional_aircraft.md`
+  に従って架空機セクションを作成中、利用量制限(レートリミット)に到達して
+  停止した。Codex UI 内では「+361 -26」の未適用差分が残っていたが、
+  ローカルおよびリモートには反映されておらず、本人もApply操作が不明
+  だったため救出を断念。Claude Code が同じ指示書に従って引き継ぎ作成した。
+- 作業結果(Claude Code 側):
+  - 17件のエントリを作成(AC2: 3 / AC04: 1 / ACZ: 2 / ACX: 2 / AC6: 1 /
+    ACJA: 1 / AH: 1 / AC7: 3 / ACI: 3)。AC5 は wiki.gg 上で in-universe
+    オリジナル機が確認できなかったため新規エントリなし
+  - 全件 `△ アーキタイプ追加`(理由: 1点物・限定生産プロトタイプ枠)
+  - MD既存実装との対応は全件「未確認(MD実コード未取得)」
+  - 典拠URLは全件 `acecombat.wiki.gg` で確認済み(個別の機体ページを
+    Claude Code 側で WebFetch して確認)
+  - 未エントリ化分(YR-99 Forneus / YR-302 Fregata / XR-45 Cariburn /
+    ADA-01A / ADFX-10 / ATD-0 / Bm-335 Lindwurm / F-16XA等の
+    "fictional variants of real aircraft" 系)は 要追加調査リストに
+    分離記載
+  - 統計レポートを再集計(総数 17→34、架空機 0→17、△ 9→26、未確認 10→27)
+- Codex からの実装協力歓迎ポイント:
+  - 未エントリ化分の典拠確認とエントリ化(余裕があれば)
+  - AC5 の in-universe フィクション機が本当に無いかの再確認
+    (Claude Code は wiki.gg の AC5/Aircraft ページのみで判断したため)
+- 次の指示書: 種別③架空艦セクション用の指示書は未作成。
+  本人レビュー後に Claude Code が作成予定。
+
+---
+
 ## 2026-06-27 [Claude Code → Codex] (解決済み) mothership_equipment アーキタイプ再利用可能性の確認
 
 - ステータス: 解決済み(調査完了・DATABASE.md反映済み)
