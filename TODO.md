@@ -48,9 +48,9 @@
 - [x] [Claude Code] INSTRUCTION_FOR_DATABASE.md を読み込み、
       Codex向け指示書を作成
       → `instructions/2026-06-27_database_md_superweapons.md`
-- [~] [Codex] 上記指示書に従い、DATABASE.md の作成を開始
+- [x] [Codex] 上記指示書に従い、DATABASE.md の作成を開始
   - 超兵器分類の判断待ちで一時停止 → HANDOFF.md で解決済み、続行可
-- [ ] [Codex] 種別 ① 超兵器 のセクションを完成 → 進捗報告
+- [x] [Codex] 種別 ① 超兵器 のセクションを完成 → 進捗報告
 - [ ] [本人] 超兵器セクションの内容を確認・訂正
 - [ ] [Claude Code/Codex] 種別 ② 架空機 のセクションを完成 → 進捗報告
 - [ ] [本人] 架空機セクションの内容を確認・訂正
