@@ -24,12 +24,32 @@
   - TODO P1 で過去リポジトリ・ファイルから知見を回収する予定
   - 回収できたら本ドキュメントに転記する
 
+### MDローカル本体のパス(2026-06-28 確定)
+
+ユーザーは正式版とβ版の両方をプレイ。最近の主用途はβ版。
+**本MOD設計の主参照源はβ版**とする。差分確認時に正式版・GitHub dev版を当たる。
+
+| 種別 | パス | バージョン | HOI4対応 |
+|------|------|------------|----------|
+| **Steam β版(主)** | `C:\Program Files (x86)\Steam\steamapps\workshop\content\394360\3374271790\` | MD 2.0.0 "Beta Test" | 1.19.* |
+| Steam 正式版(副) | `C:\Program Files (x86)\Steam\steamapps\workshop\content\394360\2777392649\` | MD 1.12.2 | 1.17.* |
+| GitHub dev版 一時(参考) | `C:\Users\tkmuh\AppData\Local\Temp\claude\md_check\Millennium-Dawn\` | dev | (一時クローン、消失リスクあり) |
+
+派生MOD(参考用):
+- Millennium Dawn: Expanded Technologies (MDET) = `3202051246`
+
+descriptor.mod の `replace_path` リストにより、本MODが**置換**できる
+パスと**追加のみ可能**なパスが決まる。MD公式が replace 宣言している場所
+(`common/units/equipment` 等)は、本MODが上書き衝突しないよう
+追加ファイル方式で実装する。
+
 ### MDリポジトリ既存実装
 
-調査済みの参考実装(2026-06-27 時点):
+調査済みの参考実装(2026-06-28 Steam β版で再確認):
 
 - **アーセナルバードのアーキタイプ**: `mothership_equipment`
-  - 場所: `common/units/equipment/MD_plane_airframes.txt`, line 6086 付近
+  - 場所: `common/units/equipment/MD_plane_airframes.txt`, line 6086
+    (variant `mothership_equipment_1` は line 6238)
   - 性質: `is_archetype = yes`, `is_buildable = no`, `is_convertable = yes`
   - 特徴的スロット: `fixed_primary_command_operations`,
     `fixed_drone_doc_slot_1`〜`fixed_drone_doc_slot_5`,

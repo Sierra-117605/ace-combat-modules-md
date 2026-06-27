@@ -85,6 +85,14 @@
 - [ ] [本人] 架空機セクションの内容を確認・訂正
 - [ ] [Claude Code/Codex] 種別 ③ 架空艦 のセクションを完成 → 進捗報告
 - [ ] [本人] 架空艦セクションの内容を確認・訂正
+- [x] [Claude Code + 本人] 種別 ④ モジュール構成要素 候補サマリを確定(14モジュール)
+  - 2026-06-28 本人と協議の上、A〜J を整理して14候補に圧縮
+  - F.防御系・MSTM・Dark Fire/Star Fire は除外
+  - DATABASE.md 種別④セクション冒頭にサマリ表を追加済み
+- [~] [Claude Code] 種別 ④ 各モジュールの個別エントリ作成(MD β版で○判定裏取り中)
+  - MD β版パス: `C:\Program Files (x86)\Steam\steamapps\workshop\content\394360\3374271790\`
+  - 各モジュールについて MD_plane_modules.txt 等で既存類似モジュール・
+    allowed_module_categories を確認後、エントリ化
 - [ ] [Claude Code/Codex] 種別 ④ モジュール構成要素 のセクションを完成
       → 進捗報告
 - [ ] [本人] モジュール構成要素セクションの内容を確認・訂正
