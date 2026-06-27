@@ -22,8 +22,10 @@
    全て元指示書に従う。本指示書は着手指示であり要約ではない)
 2. `DATABASE.md` の末尾(「要追加調査リスト」「統計レポート」の手前)に
    `## 種別 ② 架空機` セクションを追加する
-3. 対象11作品(AC2 → AC3 → AC04 → AC5 → ACZ → ACX → AC6 → ACJA → AH → AC7 → ACI の発表順)から、
+3. 対象10作品(AC2 → AC04 → AC5 → ACZ → ACX → AC6 → ACJA → AH → AC7 → ACI の発表順)から、
    in-universe の架空航空機(プレイヤー機・敵機・ボス機等)を洗い出す
+   - **注記(2026-06-27)**: AC3 Electrosphere はスコープ外に決定された。
+     AC3の機体は対象に含めないこと(経緯はPLAN.md/SPEC.md参照)
 4. 典拠は `acecombat.wiki.gg` を優先、補完に `acecombat.fandom.com`、
    登場作品のクロスチェックに `dic.nicovideo.jp/t/a/エースコンバットシリーズの登場機体`
    を使う(`INSTRUCTION_FOR_DATABASE.md` 3章参照)

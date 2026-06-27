@@ -58,8 +58,16 @@
     アーキタイプ追加例外扱い、固定設置型は除外)と整合
   - 承認。詳細は HANDOFF.md 参照
 - [ ] [本人] 超兵器セクションの内容を確認・訂正(任意。Claude Codeレビュー済み)
+- [x] [本人 → Claude Code] AC3 Electrosphere をスコープ外に決定(2026-06-27)
+  - 理由: シリーズの他作品と世界観・雰囲気が大きく異なるため
+  - 対応: PLAN.md / SPEC.md / MOD_OVERVIEW.md / INSTRUCTION_FOR_DATABASE.md
+    の対象作品リストを11→10作品に更新。DATABASE.mdのAC3関連エントリ
+    (超兵器6件: メガフロート、OSL、セピア、レモラ、モビュラ、スフィルナ)を
+    削除し、統計レポートを再計算(23件→17件)
+  - 架空機セクションのCodex向け指示書にも除外を反映済み
 - [x] [Claude Code] 種別 ② 架空機 のCodex向け指示書を作成
       → `instructions/2026-06-27_database_md_fictional_aircraft.md`
+      (AC3除外を反映済み)
 - [ ] [Codex] 種別 ② 架空機 のセクションを完成 → 進捗報告
 - [ ] [本人] 架空機セクションの内容を確認・訂正
 - [ ] [Claude Code/Codex] 種別 ③ 架空艦 のセクションを完成 → 進捗報告

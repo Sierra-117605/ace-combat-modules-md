@@ -100,11 +100,10 @@ KNOWLEDGE.md に蓄積する。
 
 ## 4. 対象作品と兵器の選定
 
-### 4.1 対象作品(確定、11作品)
+### 4.1 対象作品(確定、10作品)
 
 発表順:
 - AC2 (Ace Combat 2)
-- AC3 Electrosphere
 - AC04 (Shattered Skies)
 - AC5 (The Unsung War)
 - ACZ (Zero: The Belkan War)
@@ -114,6 +113,10 @@ KNOWLEDGE.md に蓄積する。
 - AH (Assault Horizon)
 - AC7 (Skies Unknown)
 - AC Infinity (2018年3月サービス終了済み)
+
+**AC3 Electrosphere は2026-06-27にスコープ外と決定**(世界観・雰囲気が
+シリーズの他作品と大きく異なるため。本人判断)。
+DATABASE.mdに既に作成済みのAC3関連エントリ(超兵器6件)は削除済み。
 
 ### 4.2 本命作品(未決定)
 
@@ -145,7 +148,8 @@ DATABASE.md の判定結果を踏まえ、最小スコープで1〜2モジュー
 - 架空車両・実在車両・実在艦のDB化
 - 陣営性の固有化(オーシア/エルジア専用モジュール等)
 - AC作品由来の通常機の追加(機体本体は追加せず、モジュールで個性化)
-- AC8、AHL、AC Xi、AC Northern Wings、AC Advance のDB化(対象外作品)
+- AC3 Electrosphere、AC8、AHL、AC Xi、AC Northern Wings、AC Advance の
+  DB化(対象外作品。AC3は2026-06-27にスコープ外決定)
 
 ---
 

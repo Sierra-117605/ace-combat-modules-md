@@ -84,11 +84,10 @@ Millennium Dawn のモジュール式装備デザイナー上に追加し、
 
 ---
 
-## 対象作品(11作品)
+## 対象作品(10作品)
 
 発表順:
 - AC2 (Ace Combat 2)
-- AC3 Electrosphere
 - AC04 (Shattered Skies)
 - AC5 (The Unsung War)
 - ACZ (Zero: The Belkan War)
@@ -100,6 +99,8 @@ Millennium Dawn のモジュール式装備デザイナー上に追加し、
 - AC Infinity (2018年3月サービス終了済み)
 
 スコープ外:
+- **AC3 Electrosphere**(2026-06-27 除外決定。世界観・雰囲気がシリーズの
+  他作品と大きく異なるため、本人判断でスコープ外とした)
 - AC8 (Wings of Theve、未発売)
 - AHL (Assault Horizon Legacy)
 - AC Xi

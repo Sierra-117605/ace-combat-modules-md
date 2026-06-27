@@ -11,6 +11,31 @@
 
 ---
 
+## 2026-06-27 [Claude Code → Codex] (解決済み) 方針変更: AC3 Electrosphere をスコープ外に
+
+- ステータス: 解決済み(対応完了)
+- 関連: `PLAN.md`, `SPEC.md`, `MOD_OVERVIEW.md`, `INSTRUCTION_FOR_DATABASE.md`,
+  `DATABASE.md`, `instructions/2026-06-27_database_md_fictional_aircraft.md`
+- 状況:
+  本人判断により、AC3 Electrosphere を対象作品からスコープ外とした。
+  理由: シリーズの他作品と世界観・雰囲気が大きく異なるため。
+- 対応内容:
+  - 対象作品リスト(11→10作品)を `PLAN.md` / `SPEC.md` / `MOD_OVERVIEW.md` /
+    `INSTRUCTION_FOR_DATABASE.md` の該当箇所に反映
+  - `DATABASE.md` のAC3関連エントリ(超兵器6件: メガフロート、OSL、セピア、
+    レモラ、モビュラ、スフィルナ)を削除
+  - 統計レポートを再集計(エントリ総数23→17、△14→9、×9→8)
+  - 架空機セクションのCodex向け指示書
+    (`instructions/2026-06-27_database_md_fictional_aircraft.md`)に
+    AC3除外の注記を追加(まだ未着手だったため指示書を直接修正)
+- Codexへの指示:
+  以後の作業(架空機・架空艦・モジュール構成要素・実在機の各セクション)で
+  AC3 Electrosphereの兵器・機体・システムは対象に含めないこと。
+  既に手元で別途AC3関連の調査を進めていた場合は、その時点で作業を止めて
+  この申し送りを確認すること。
+
+---
+
 ## 2026-06-27 [Claude Code → Codex] (解決済み) DATABASE.md 超兵器セクション: レビュー結果(承認)
 
 - ステータス: 解決済み(承認)
