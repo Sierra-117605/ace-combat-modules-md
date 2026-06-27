@@ -68,6 +68,10 @@
 - [x] [Claude Code] 種別 ② 架空機 のCodex向け指示書を作成
       → `instructions/2026-06-27_database_md_fictional_aircraft.md`
       (AC3除外を反映済み)
+- [x] [本人 → Claude Code] mothership_equipment アーキタイプの再利用可能性を調査
+  - 本人の仮説(空中艦系超兵器7件をアーセナルバードのアーキタイプ
+    流用で実装できないか)をMD GitHub dev版の実コードで確認し、正しいと判明
+  - DATABASE.mdの該当7エントリ・統計レポートを更新。詳細はHANDOFF.md参照
 - [ ] [Codex] 種別 ② 架空機 のセクションを完成 → 進捗報告
 - [ ] [本人] 架空機セクションの内容を確認・訂正
 - [ ] [Claude Code/Codex] 種別 ③ 架空艦 のセクションを完成 → 進捗報告

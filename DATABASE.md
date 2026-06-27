@@ -13,8 +13,19 @@
 
 - 超兵器分類は公式 ACES CHRONICLE を最優先する。
 - acecombat.wiki.gg の Disputed 判定は、本プロジェクトでは公式判定に優先しない。
-- このリポジトリには MD 本体の `common/` が無いため、MD既存実装との対応は全件
-  `未確認(MD実コード未取得)` とする。
+
+MD既存実装との対応について:
+
+- このリポジトリには MD 本体の `common/` が無いため、原則 MD既存実装との
+  対応は `未確認(MD実コード未取得)` とする。
+- ただし2026-06-27、Claude Code が GitHub dev版
+  (MillenniumDawn/Millennium-Dawn)を一時的にsparse-checkoutして
+  `mothership_equipment` アーキタイプ周辺を確認した。空中艦・空母系の
+  超兵器7件(アークバード、フレスベルク、グレイプニル、アイガイオン、
+  ギュゲス、コットス、アーセナルバード)は、この既存アーキタイプの
+  新規variant追加で実装できる可能性が高いことが分かったため、
+  該当エントリのみ「対応物あり」に更新済み。詳細は HANDOFF.md /
+  KNOWLEDGE.md 参照。
 
 公式典拠:
 
@@ -86,9 +97,19 @@
   - https://acecombat.jp/en/chronicle/weapons/
 - **HOI4実装判定**: △ アーキタイプ追加
 - **判定根拠**: 宇宙機本体に相当し、通常装備モジュールではない。
-  実装する場合は専用アーキタイプまたは特殊プロジェクト扱いが必要。
-- **MD既存実装との対応**: 未確認(MD実コード未取得)
-- **備考**: 軌道兵器要素が強く、初期実装候補としては難度が高い。
+  既存の `mothership_equipment` アーキタイプ(下記参照)を再利用した
+  新規variant追加で実装できる可能性がある。新規アーキタイプ構築は不要と推定。
+- **MD既存実装との対応**: 対応物あり(再利用候補) —
+  `mothership_equipment` アーキタイプ
+  (`common/units/equipment/MD_plane_airframes.txt:6086-6251`、
+  GitHub dev版 MillenniumDawn/Millennium-Dawn で2026-06-27 Claude Code確認)。
+  Special Project `sp_arsenal_bird`
+  (`common/special_projects/projects/air_projects.txt:649`付近)に倣い、
+  新規variant(`mothership_equipment_2`等)+専用Special Project+
+  専用アイコンで実装可能と推定。
+- **備考**: 軌道兵器要素が強く、衛星本体を航空機アーキタイプで表現する
+  ことに違和感が残る可能性はあるが、メカニクス上は流用可能。
+  実装する場合は本人と方向性を確認すること。
 
 ### SOLG (Strategic Orbital Linear Gun)
 
@@ -132,9 +153,17 @@
   - https://acecombat.jp/en/chronicle/weapons/
   - https://acecombat.wiki.gg/wiki/Superweapon
 - **HOI4実装判定**: △ アーキタイプ追加
-- **判定根拠**: 空中空母本体に相当する。実装する場合は専用アーキタイプや
-  Special Projects 型の扱いが必要。
-- **MD既存実装との対応**: 未確認(MD実コード未取得)
+- **判定根拠**: 空中空母本体に相当する。既存の `mothership_equipment`
+  アーキタイプ(下記参照)を再利用した新規variant追加で実装できる
+  可能性がある。新規アーキタイプ構築は不要と推定。
+- **MD既存実装との対応**: 対応物あり(再利用候補) —
+  `mothership_equipment` アーキタイプ
+  (`common/units/equipment/MD_plane_airframes.txt:6086-6251`、
+  GitHub dev版 MillenniumDawn/Millennium-Dawn で2026-06-27 Claude Code確認)。
+  Special Project `sp_arsenal_bird`
+  (`common/special_projects/projects/air_projects.txt:649`付近)に倣い、
+  新規variant(`mothership_equipment_2`等)+専用Special Project+
+  専用アイコンで実装可能と推定。
 - **備考**: acecombat.wiki.ggではDisputed判定だが、本プロジェクトでは公式判定を優先。
 
 ### ネベラジャマー (Nevera Jammer)
@@ -194,9 +223,18 @@
   - https://acecombat.jp/en/chronicle/weapons/
   - https://acecombat.wiki.gg/wiki/Superweapon
 - **HOI4実装判定**: △ アーキタイプ追加
-- **判定根拠**: 航空要塞本体に相当するため、実装する場合は専用アーキタイプが必要。
-  光学迷彩やショックカノンはモジュール化候補になり得る。
-- **MD既存実装との対応**: 未確認(MD実コード未取得)
+- **判定根拠**: 航空要塞本体に相当するため、実装する場合はvariant追加が必要。
+  既存の `mothership_equipment` アーキタイプ(下記参照)を再利用した
+  新規variant追加で実装できる可能性がある。光学迷彩やショックカノンは
+  モジュール化候補になり得る。
+- **MD既存実装との対応**: 対応物あり(再利用候補) —
+  `mothership_equipment` アーキタイプ
+  (`common/units/equipment/MD_plane_airframes.txt:6086-6251`、
+  GitHub dev版 MillenniumDawn/Millennium-Dawn で2026-06-27 Claude Code確認)。
+  Special Project `sp_arsenal_bird`
+  (`common/special_projects/projects/air_projects.txt:649`付近)に倣い、
+  新規variant(`mothership_equipment_2`等)+専用Special Project+
+  専用アイコンで実装可能と推定。
 - **備考**: acecombat.wiki.ggではDisputed判定だが、本プロジェクトでは公式判定を優先。
 
 ### シャンデリア (Chandelier)
@@ -227,9 +265,17 @@
   - https://acecombat.jp/en/chronicle/weapons/
   - https://acecombat.wiki.gg/wiki/Superweapon
 - **HOI4実装判定**: △ アーキタイプ追加
-- **判定根拠**: 空中空母本体に相当する。実装する場合は専用アーキタイプや
-  `mothership_equipment` 型の調査が必要。
-- **MD既存実装との対応**: 未確認(MD実コード未取得)
+- **判定根拠**: 空中空母本体に相当する。既存の `mothership_equipment`
+  アーキタイプ(下記参照)を再利用した新規variant追加で実装できる
+  可能性がある。新規アーキタイプ構築は不要と推定。
+- **MD既存実装との対応**: 対応物あり(再利用候補) —
+  `mothership_equipment` アーキタイプ
+  (`common/units/equipment/MD_plane_airframes.txt:6086-6251`、
+  GitHub dev版 MillenniumDawn/Millennium-Dawn で2026-06-27 Claude Code確認)。
+  Special Project `sp_arsenal_bird`
+  (`common/special_projects/projects/air_projects.txt:649`付近)に倣い、
+  新規variant(`mothership_equipment_2`等)+専用Special Project+
+  専用アイコンで実装可能と推定。
 - **備考**: acecombat.wiki.ggではDisputed判定だが、本プロジェクトでは公式判定を優先。
 
 ### ギュゲス (Gyges)
@@ -243,9 +289,17 @@
   - https://acecombat.jp/en/chronicle/weapons/
   - https://acecombat.wiki.gg/wiki/Superweapon
 - **HOI4実装判定**: △ アーキタイプ追加
-- **判定根拠**: 支援航空機本体に相当するため、モジュール単体ではなく
-  専用アーキタイプまたは随伴機システムとしての扱いが必要。
-- **MD既存実装との対応**: 未確認(MD実コード未取得)
+- **判定根拠**: 支援航空機本体に相当する。既存の `mothership_equipment`
+  アーキタイプ(下記参照)を再利用した新規variant追加で実装できる
+  可能性がある。新規アーキタイプ構築は不要と推定。
+- **MD既存実装との対応**: 対応物あり(再利用候補) —
+  `mothership_equipment` アーキタイプ
+  (`common/units/equipment/MD_plane_airframes.txt:6086-6251`、
+  GitHub dev版 MillenniumDawn/Millennium-Dawn で2026-06-27 Claude Code確認)。
+  Special Project `sp_arsenal_bird`
+  (`common/special_projects/projects/air_projects.txt:649`付近)に倣い、
+  新規variant(`mothership_equipment_2`等)+専用Special Project+
+  専用アイコンで実装可能と推定。
 - **備考**: acecombat.wiki.ggではDisputed判定だが、本プロジェクトでは公式判定を優先。
 
 ### コットス (Kottos)
@@ -259,9 +313,17 @@
   - https://acecombat.jp/en/chronicle/weapons/
   - https://acecombat.wiki.gg/wiki/Superweapon
 - **HOI4実装判定**: △ アーキタイプ追加
-- **判定根拠**: 支援航空機本体に相当する。電子戦能力のみを切り出せば
-  モジュール化候補になり得る。
-- **MD既存実装との対応**: 未確認(MD実コード未取得)
+- **判定根拠**: 支援航空機本体に相当する。既存の `mothership_equipment`
+  アーキタイプ(下記参照)を再利用した新規variant追加で実装できる
+  可能性がある。電子戦能力のみを切り出せばモジュール化候補にもなり得る。
+- **MD既存実装との対応**: 対応物あり(再利用候補) —
+  `mothership_equipment` アーキタイプ
+  (`common/units/equipment/MD_plane_airframes.txt:6086-6251`、
+  GitHub dev版 MillenniumDawn/Millennium-Dawn で2026-06-27 Claude Code確認)。
+  Special Project `sp_arsenal_bird`
+  (`common/special_projects/projects/air_projects.txt:649`付近)に倣い、
+  新規variant(`mothership_equipment_2`等)+専用Special Project+
+  専用アイコンで実装可能と推定。
 - **備考**: acecombat.wiki.ggではDisputed判定だが、本プロジェクトでは公式判定を優先。
 
 ### アリコーン (Alicorn)
@@ -292,11 +354,23 @@
   - https://acecombat.jp/en/chronicle/weapons/
   - https://acecombat.wiki.gg/wiki/Superweapon
 - **HOI4実装判定**: △ アーキタイプ追加
-- **判定根拠**: 巨大航空機本体に相当する。MDには先行例として
-  `mothership_equipment` があると KNOWLEDGE.md に記録されているため、
-  実装時はその実コード確認が必要。
-- **MD既存実装との対応**: 未確認(MD実コード未取得)
+- **判定根拠**: 巨大航空機本体に相当する。MDには既存実装 `mothership_equipment`
+  があり、その唯一のvariant `mothership_equipment_1` がアーセナルバード
+  そのものとして実装済み。本MODでは新規アーキタイプ構築は不要(既存実装を
+  そのまま参照・流用する想定)。
+- **MD既存実装との対応**: 対応物あり(本体そのもの) —
+  `mothership_equipment` アーキタイプおよび variant `mothership_equipment_1`
+  (`common/units/equipment/MD_plane_airframes.txt:6086-6251`)。
+  Special Project `sp_arsenal_bird`
+  (`common/special_projects/projects/air_projects.txt:649`付近)で
+  `enable_equipments = { mothership_equipment_1 }` および専用モジュール
+  (`weap_droneswarm_fighter_1`, `weap_droneswarm_bomber_1`,
+  `weap_missile_bay_1`, `weap_droneswarm_anti_ship_1`,
+  `fully_autonomous_computer_system_arsenal`)を有効化する実装が既に存在
+  (GitHub dev版 MillenniumDawn/Millennium-Dawn で2026-06-27 Claude Code確認)。
 - **備考**: acecombat.wiki.ggではDisputed判定だが、本プロジェクトでは公式判定を優先。
+  アーセナルバード自体はMDに実装済みのため、本MODでの追加作業は
+  既存モジュール群の確認・必要に応じた調整のみで済む可能性が高い。
 
 ---
 
@@ -304,33 +378,42 @@
 
 ### MD実コード未取得のため未確認
 
-このリポジトリには MD 本体の `common/` 配下が無いため、以下の全エントリで
-MD既存実装との対応は未確認。
+このリポジトリには MD 本体の `common/` 配下が無いため、以下のエントリで
+MD既存実装との対応は未確認(2026-06-27に個別確認した空中艦・空母系7件を除く)。
 
 - ストーンヘンジ (Stonehenge)
 - メガリス (Megalith)
 - シンファクシ級潜水空母 (Scinfaxi & Hrimfaxi)
-- アークバード (Arkbird)
 - SOLG (Strategic Orbital Linear Gun)
 - エクスキャリバー (Excalibur)
-- フレスベルク (Hresvelgr / XB-0)
 - ネベラジャマー (Nevera Jammer)
 - メソンカノン (Meson Cannons)
 - アーケロン要塞 (Archelon Fortress)
-- グレイプニル (Gleipnir)
 - シャンデリア (Chandelier)
+- アリコーン (Alicorn)
+
+### 確認済み(2026-06-27、Claude CodeがMD GitHub dev版を一時取得して確認)
+
+以下7件は `mothership_equipment` アーキタイプ
+(`common/units/equipment/MD_plane_airframes.txt:6086-6251`)の新規variant
+追加で実装できる可能性が高いことを確認済み。「対応物あり」として記録。
+
+- アークバード (Arkbird)
+- フレスベルク (Hresvelgr / XB-0)
+- グレイプニル (Gleipnir)
 - アイガイオン (Aigaion)
 - ギュゲス (Gyges)
 - コットス (Kottos)
-- アリコーン (Alicorn)
-- アーセナルバード (Arsenal Birds)
+- アーセナルバード (Arsenal Birds) — variant `mothership_equipment_1` として実装済み
 
 ---
 
 ## 統計レポート
 
-(2026-06-27更新: AC3 Electrosphereのスコープ外決定により、AC3関連の
-超兵器6件を削除して再集計)
+(2026-06-27更新: AC3 Electrosphereのスコープ外決定によりAC3関連の
+超兵器6件を削除。さらに同日、MD GitHub dev版を一時取得して
+`mothership_equipment` アーキタイプを確認し、空中艦・空母系7件の
+MD対応状況を「対応物あり」に更新)
 
 - エントリ総数: 17
 - 種別別件数:
@@ -345,7 +428,7 @@ MD既存実装との対応は未確認。
   - × 除外: 8
   - 要判断: 0
 - MD対応状況:
-  - 対応物あり: 0
+  - 対応物あり: 7
   - 該当なし: 0
-  - 未確認: 17
-- 要追加調査リストの件数: 17
+  - 未確認: 10
+- 要追加調査リストの件数: 10(確認済み7件を除く)

@@ -11,6 +11,50 @@
 
 ---
 
+## 2026-06-27 [Claude Code → Codex] (解決済み) mothership_equipment アーキタイプ再利用可能性の確認
+
+- ステータス: 解決済み(調査完了・DATABASE.md反映済み)
+- 関連: `DATABASE.md`(超兵器セクション7件), `KNOWLEDGE.md`
+  「MDリポジトリ既存実装」セクション
+- 状況:
+  本人より、空中艦・空母系の超兵器7件(アーセナルバード、アイガイオン、
+  ギュゲス、コットス、アークバード、フレスベルク/XB-0、グレイプニル)が
+  MD既存の「アーセナルバード」アーキタイプを使い、モジュール・アイコン
+  追加だけで実装できないか、との指摘があった。
+  このリポジトリには `common/` が無いため、MD本体のGitHub dev版
+  (`https://github.com/MillenniumDawn/Millennium-Dawn.git`)を一時的に
+  sparse-checkoutして実コードを確認した。
+- 確認結果(事実):
+  - アーキタイプ名は `mothership_equipment`
+    (`common/units/equipment/MD_plane_airframes.txt:6086`付近)。
+    `is_archetype = yes` の汎用「空中要塞母機」アーキタイプであり、
+    既存variantは `mothership_equipment_1`(=アーセナルバード本体)の
+    **1つのみ**。
+  - 入手経路は Special Project `sp_arsenal_bird`
+    (`common/special_projects/projects/air_projects.txt:651`付近)。
+    `enable_equipments = { mothership_equipment_1 }` と専用モジュール
+    (`weap_droneswarm_fighter_1` 等)を有効化している。
+  - つまり本人の仮説は正しい: 他の空中艦系超兵器は、このアーキタイプの
+    **新規variant**(`mothership_equipment_2` 等)+ 新規 Special Project
+    + 新規アイコンで実装できる可能性が高く、ゼロからアーキタイプを
+    組む必要は無い。
+- 対応内容:
+  `DATABASE.md` の該当7エントリの「判定根拠」「MD既存実装との対応」を
+  上記の具体的なファイルパス・行番号付きで更新済み(アーセナルバードは
+  「対応物あり(本体そのもの)」、残り6件は「対応物あり(再利用候補)」)。
+  統計レポートの「MD対応状況」も
+  対応物あり7/未確認10に更新済み。アークバードのみ軌道兵器要素が強く
+  違和感が残る可能性がある旨を備考に付記。
+- Codexへの指示:
+  この更新を取り込んだ上で、種別②架空機セクション
+  (`instructions/2026-06-27_database_md_fictional_aircraft.md`)に進んで
+  良い。架空機・架空艦セクションで同種の「既存アーキタイプ再利用」の
+  可能性に気づいた場合は、同様に実コードで確認してから
+  「対応物あり(再利用候補)」のように記載してよい(都度HANDOFF.mdで
+  止める必要はない。今回のパターンが前例となる)。
+
+---
+
 ## 2026-06-27 [Claude Code → Codex] (解決済み) 方針変更: AC3 Electrosphere をスコープ外に
 
 - ステータス: 解決済み(対応完了)
