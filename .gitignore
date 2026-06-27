@@ -1,0 +1,40 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+
+# Node
+node_modules/
+
+# HOI4 / Paradox temp & debug
+*.log
+*.tmp
+
+# OS specific
+$RECYCLE.BIN/
+
+# MD関連の一時ファイル / ローカル調査キャッシュ
+/_scratch/
+/_md_local_clone/
+
+# AI agent状態ファイル(必要なら追加)
+.claude/
+.codex/
+.opencode/

@@ -1,0 +1,120 @@
+# TODO.md — タスク管理
+
+本ドキュメントは ACM-MD プロジェクトのタスクを管理する。
+コンテキストリセット(セッション切れ)しても再開できるよう、
+タスクは具体的に、依存関係を明示する。
+
+## 凡例
+
+- `[ ]` 未着手
+- `[~]` 進行中
+- `[x]` 完了
+- `[!]` ブロック中(理由を明記)
+- 各タスクには担当環境を [claude.ai] [Claude Code/Codex] [本人] で明示
+
+---
+
+## P0: 初期セットアップ
+
+- [x] [claude.ai] PLAN.md / SPEC.md / TODO.md / KNOWLEDGE.md /
+      MOD_OVERVIEW.md / INSTRUCTION_FOR_DATABASE.md /
+      CLAUDE.md / AGENTS.md / README.md / .gitignore の初版作成
+- [ ] [本人] GitHub上に `ace-combat-modules-md` リポジトリを作成
+  - URL: https://github.com/Sierra-117605/ace-combat-modules-md
+- [ ] [本人] claude.ai から出力されたZIPをダウンロード、PCで展開
+- [ ] [本人] `git init` → 初回 commit → リモート追加 → push
+  - 手順は同梱の README.md を参照
+- [ ] [本人] Claude Code または Codex を起動し、リポジトリディレクトリで
+      作業開始
+
+---
+
+## P1: 既存ナレッジの棚卸し
+
+- [ ] [本人 + Claude Code/Codex] 過去のマブラブ戦術機追加MOD移植プロジェクトの
+      リポジトリ・ファイル一式を確認
+  - マブラブMODをMDに移植した経験あり
+  - 当時の作業ログ・KNOWLEDGE がローカルに残っているか確認
+  - 残っていれば本プロジェクトの KNOWLEDGE.md に転記する
+- [ ] [Claude Code/Codex] マブラブMODの実装でハマったポイントを整理
+  - モジュール追加で困った点
+  - アイコン関連の問題
+  - ローカライズの問題
+  - MD固有の挙動による地雷
+
+---
+
+## P2: DATABASE.md 作成
+
+- [ ] [Claude Code/Codex] INSTRUCTION_FOR_DATABASE.md を読み込み、
+      DATABASE.md の作成を開始
+- [ ] [Claude Code/Codex] 種別 ① 超兵器 のセクションを完成 → 進捗報告
+- [ ] [本人] 超兵器セクションの内容を確認・訂正
+- [ ] [Claude Code/Codex] 種別 ② 架空機 のセクションを完成 → 進捗報告
+- [ ] [本人] 架空機セクションの内容を確認・訂正
+- [ ] [Claude Code/Codex] 種別 ③ 架空艦 のセクションを完成 → 進捗報告
+- [ ] [本人] 架空艦セクションの内容を確認・訂正
+- [ ] [Claude Code/Codex] 種別 ④ モジュール構成要素 のセクションを完成
+      → 進捗報告
+- [ ] [本人] モジュール構成要素セクションの内容を確認・訂正
+- [ ] [Claude Code/Codex] 種別 ⑤ 実在機 のセクションを完成 → 進捗報告
+- [ ] [本人] 実在機セクションの内容を確認・訂正
+- [ ] [Claude Code/Codex] DATABASE.md 末尾に統計レポートを追記して完成
+
+---
+
+## P3: SPEC精査(MDコード調査)
+
+- [ ] [Claude Code/Codex] MDのモジュール定義書式を精査
+  - モジュールカテゴリの定義方法
+  - 既存スロットに新カテゴリを許可する方法
+  - 性能修正値(modifier)の書式
+  - 利用可能な statキー一覧
+- [ ] [Claude Code/Codex] アイコン .dds の仕様確認
+  - サイズ・圧縮形式
+  - 登録先 `.gfx` ファイルパス
+- [ ] [Claude Code/Codex] Special Projects の新規追加手順を確認
+- [ ] [Claude Code/Codex] ローカライズキーの命名規則を確認
+- [ ] [Claude Code/Codex] 上記をすべて KNOWLEDGE.md に蓄積
+- [ ] [Claude Code/Codex] SPEC.md の「要調査」項目を「確定」に更新
+
+---
+
+## P4: 本命作品の選定
+
+- [ ] [本人] DATABASE.md と SPEC.md を踏まえ、深掘りする本命AC作品を
+      対象11作品から1つ選定
+- [ ] [本人] 第一段階で実装するモジュール候補を1〜2個に絞る
+
+---
+
+## P5: 最小動作版(v0.1.0)の実装
+
+- [ ] [Claude Code/Codex] 最初のモジュール1個を実装(ファイル作成)
+- [ ] [Claude Code/Codex] アイコンを既存流用 or 配置
+- [ ] [Claude Code/Codex] ローカライゼーション(英語、日本語)
+- [ ] [本人] HOI4起動、モジュール画面で表示されるか確認
+- [ ] [本人] ゲーム内で性能修正値が適用されるか確認
+- [ ] [本人] 動作OKなら v0.1.0 タグを切る
+
+---
+
+## P6: 拡張フェーズ(v0.1.0以降)
+
+- v0.1.0 完成後に別途 PLAN.md / SPEC.md / TODO.md を更新する
+- ここには現時点では書かない
+
+---
+
+## 並行タスク(随時)
+
+- [ ] [Claude Code/Codex] ハマりポイント・地雷を見つけたら即 KNOWLEDGE.md に追記
+- [ ] [claude.ai] 仕様変更・方針変更が出たら PLAN.md / SPEC.md /
+      MOD_OVERVIEW.md を更新
+- [ ] [本人] 進捗を Discord / メモ等に記録(任意)
+
+---
+
+## ブロック中のタスク
+
+(現時点でブロック中のタスクなし)
