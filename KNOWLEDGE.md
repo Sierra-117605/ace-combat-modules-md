@@ -763,6 +763,55 @@ Special Project 側は `icon = GFX_sp_*` を明示指定し、`.gfx` で対応 s
 `sp_tag_pilotless_vehicles` を使う構成なら、`sp_arsenal_bird` と同じ流れで
 equipment と専用 module を同時解放できる。
 
+#### MOD配置とランチャー認識の落とし穴(2026-06-28 確定)
+
+P5 PLSL 試作の動作確認時にハマった項目を恒久記録する。本MOD以外のサブMOD
+配置時にも同じ罠を踏み得る。
+
+##### (a) HOI4 ドキュメントパスは OneDrive 同期 + 日本語ロケールで化ける
+
+Windows 日本語版 + OneDrive 同期環境では、HOI4 の MOD/設定保存先は
+**`C:\Users\<user>\Documents\Paradox Interactive\...`** ではなく
+**`C:\Users\<user>\OneDrive\ドキュメント\Paradox Interactive\...`** になる。
+
+- 判定法: 当該ディレクトリに `logs/`、`launcher-v2.sqlite`、`dlc_load.json`、
+  `settings.txt`、既存 `mod/ugc_*.mod` が並んでいる側が正(本物)。
+  もう一方には `mod/` だけが残った空殻が落ちていることがあり、誤コピーで
+  「追加されていない」現象になる。
+- 教訓: 新規サブMOD を配置する前に必ず `logs/` の有無で本物の場所を確認。
+
+##### (b) `.mod` ファイルは MD既存サブMOD と同書式に揃える
+
+本MODの初回配置で descriptor を独自書式(行順入れ替え・スペースインデント・
+name に括弧含む)にしたためランチャー認識に失敗した可能性が高い。
+動作している `mod/MD_TSF_Submod.mod` の書式を完全コピーすると認識した。
+
+- 行順: `name` → `version` → `tags` → `supported_version` → `path`(`.mod` のみ)
+  → `dependencies`
+- インデント: **タブ**(スペース4ではない)
+- `mod/<id>.mod` と `mod/<id>/descriptor.mod` の両方が必要。中身は
+  `path=` 行の有無だけが違う(`.mod` 側のみ持つ)
+
+##### (c) ランチャーは `.mod` の `path` を絶対パスに自動書き換える
+
+ユーザーがランチャーで MOD を認識・有効化すると、`mod/<id>.mod` の `path` 行が
+`path="mod/<id>"`(相対)から `path="C:/Users/.../mod/<id>"`(絶対)に自動で
+書き換わる。これは認識成功の証拠であり、エラーではない。
+
+`mod/<id>/descriptor.mod`(MODフォルダ内側)には `path` 行を書かない。これも
+MD_TSF_Submod 慣習に合わせる。
+
+##### (d) `dlc_load.json` の有効化は本人がランチャー UI 経由で行う
+
+`dlc_load.json` を直接編集してもランチャー起動時にプレイセット設定で上書き
+されてしまうため意味が無い。**MOD の有効化はランチャー UI で MOD タブの
+「ローカル」リストから本人が操作する**のが唯一の確実な方法。
+
+エージェント側がやるべきは、`mod/<id>.mod` と `mod/<id>/descriptor.mod` を
+正しい場所に正しい書式で置くまで。
+
+---
+
 #### 外部MODアイコンの流用テクニック(2026-06-28 確定)
 
 本MODの **アイコン素材方針は「MD既存アイコン流用を最優先」**(SPEC.md 3.8)。
