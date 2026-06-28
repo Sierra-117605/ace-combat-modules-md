@@ -763,6 +763,45 @@ Special Project 側は `icon = GFX_sp_*` を明示指定し、`.gfx` で対応 s
 `sp_tag_pilotless_vehicles` を使う構成なら、`sp_arsenal_bird` と同じ流れで
 equipment と専用 module を同時解放できる。
 
+#### MD既存のAC機体候補アイコン素材(2026-06-28 本人発見)
+
+本人から「諦めていた機体アイコンについてはそもそもMDが一部追加していた、
+ADF-01, ADF11 などが確認できた」との発見報告。MD β版 `3374271790` の
+技術ツリー用アイコンとして以下の素材が確認できた。
+
+| MD既存ファイル | 場所 | AC作品で活用候補 |
+|----------------|------|------------------|
+| `Falken-A.dds` | `gfx/interface/technologies/SWE/AIR/` | ADF-01 FALKEN(設定上は Saab Falken だがファイル名一致) |
+| `Falken-B.dds` | 同上 | ADF-01 上位tier 候補 |
+| `Falken-C.dds` | 同上 | ADF-01 最上位tier 候補 |
+| `Fenrir.dds` | `gfx/interface/technologies/ENG/AIR/` | XFA-33 Fenrir |
+| `Raven.dds` | `gfx/interface/technologies/ENG/LAND/` | ADF-11F Raven(設定上は別ものだがファイル名一致、要設定整合) |
+
+##### 含意
+
+- 本MOD方針「機体本体追加は方針外」は維持しつつ、**将来 mothership_equipment
+  流用パターンで超大型空中艦アーキタイプを追加する場合**、機体本体アイコンを
+  新規作成する必要が無い(MD既存流用で完結する可能性が高い)
+- 種別②架空機の本MOD実装方針は変更しないが、「機体本体実装に踏み込むなら
+  素材コストが低い」事実は記録しておく
+- 将来追加検討時は、これらのファイルを `texturefile` 直接参照
+  (SPEC.md 3.8「外部MODアイコン流用テクニック」)で活用する
+
+##### 確認方法(本MOD実装時)
+
+```
+find "C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/gfx" \
+  -type f -iname "<候補名>*.dds"
+```
+
+ADF / FALKEN / ADFX / X-02 / Wyvern / Nosferatu / Fenrir / Raven 等の名前で
+検索すると、MD技術ツリー用に確保されているファイルがリストアップされる。
+ファイル名がAC機体と一致しても、in-universe 設定が違う場合(例: SAAB Falken)
+があるので、本MODが流用する際は **見た目の流用** のみとし、設定考証は
+DATABASE.md の典拠URLに準拠する。
+
+---
+
 #### MOD配置とランチャー認識の落とし穴(2026-06-28 確定)
 
 P5 PLSL 試作の動作確認時にハマった項目を恒久記録する。本MOD以外のサブMOD
