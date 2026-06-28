@@ -258,23 +258,26 @@ DATABASE.md の判定結果を踏まえ、最小スコープで1〜2モジュー
 | 機載AI支援 | plane_avionics | 同上 | モジュール追加のみ |
 | ベルカ系ECM | plane_countermeasures | `special_slot_type_1` | モジュール追加のみ |
 | 攻撃型ECM "Cocytus" | plane_countermeasures | 同上 | モジュール追加のみ |
-| MPBM | plane_fighter_weapons | `fixed_main_weapon_slot` / `auxiliary` | モジュール追加のみ |
-| 多目的全方位ミサイル | plane_fighter_weapons | 同上 | モジュール追加のみ |
-| LSWM | plane_fighter_weapons または plane_heavy_nav_weapons | 同上 | モジュール追加のみ |
+| MPBM | `acm_plane_special_weapons` | `fixed_main_weapon_slot` / `auxiliary` | 主武器/副武器に新カテゴリ追加 |
+| 多目的全方位ミサイル | `acm_plane_special_weapons` | 同上 | 同上 |
+| LSWM | `acm_plane_special_weapons` または `plane_heavy_nav_weapons` | 同上 | 主武器/副武器側は新カテゴリ追加 |
 | UAVネットワーク制御 | plane_drone_systems | `fixed_main_weapon_slot` | モジュール追加のみ |
-| **TLS** | plane_fighter_weapons(2026-06-28 本人指示で改訂) | `fixed_main_weapon_slot` / `auxiliary` | モジュール追加のみ |
-| **HPM** | 同上 | 同上 | モジュール追加のみ |
-| **機載レールガン** | 同上 | 同上 | モジュール追加のみ |
-| **子機搭載ドローン群** | 同上 | 同上 | モジュール追加のみ |
+| **TLS** | `acm_plane_special_weapons`(2026-06-28 本人再改訂) | `fixed_main_weapon_slot` / `auxiliary` | 主武器/副武器に新カテゴリ追加 |
+| **HPM** | 同上 | 同上 | 同上 |
+| **機載レールガン** | 同上 | 同上 | 同上 |
+| **子機搭載ドローン群** | 同上 | 同上 | 同上 |
 
 #### 実装の順序方針(2026-06-28 改訂)
 
-- 種別④13モジュールは **全件が「モジュール追加のみで通常戦闘機に乗る」第1群**
-  となった。本人指示「TLS / HPM / レールガン / 子機ドローン群はミサイル枠
-  (`plane_fighter_weapons`)に入れればよい」に基づき、特殊兵装枠
-  (`plane_heavy_special_design_arsenal`)からミサイル枠への移行で実現。
-  プレイヤーは AAM等の通常ミサイルと これら特殊兵装のどちらを積むかを
-  スロットでトレードオフする遊び方になる。
+- 種別④13モジュールのうち、**主武器/副武器に積む AC 独自兵装** は
+  `acm_plane_special_weapons` に集約する。本人再指示により、
+  既存ミサイル群(`plane_fighter_weapons`)とは別カテゴリの
+  **「特殊兵装」枠** として見せる方針へ変更。
+- これにより TLS / HPM / 機載レールガン / MPBM / 多目的全方位ミサイル /
+  子機搭載ドローン群などは、主武器/副武器スロット上で
+  「通常ミサイル」ではなく「ACM固有の特殊兵装」グループとして選ばれる。
+- PLSL(機関砲枠)・COFFIN(アビオニクス枠)・ECM(対抗手段枠) など、
+  主武器/副武器ではないモジュールはこの変更の対象外。
 - **アーセナルバード** (`mothership_equipment`) には本MODから追加モジュールを
   乗せない(アーセナルバードは MD既存実装で完結のため)。
 - **艦載モジュール5件**(SRC-03a超大型レールキャノン / 補助レールガン /

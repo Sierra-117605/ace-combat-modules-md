@@ -155,7 +155,9 @@
   - 本MOD初の動く実装。本命作品選定(P4)前でも実装試行可能
 - [x] [Codex] TLS 2tier を実装(追記のみ) — **TLS** 試作第2弾
   - 指示書: `instructions/2026-06-28_p5_implementation_tls.md`
-  - `plane_fighter_weapons` カテゴリで `parent` / `can_convert_from` を実地検証
+  - 主武器/副武器用の ACM 独自カテゴリで `parent` / `can_convert_from` を実地検証
+- [x] [Codex] 主武器/副武器向け ACM 独自カテゴリ `acm_plane_special_weapons` へ設計変更
+  - TLS 非表示の実機確認を受け、通常ミサイル群と分離した「特殊兵装」枠へ移行
 - [x] [Codex] アイコンを既存流用 or 配置(PLSL試作の一部、上記指示書内)
 - [x] [Codex] ローカライゼーション(英語、日本語)(PLSL試作の一部、上記指示書内)
 - [x] [本人] HOI4 起動・MD β版 + ACM-MD のロード成功(2026-06-28、本人報告「問題ない」)

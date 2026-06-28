@@ -1,4 +1,5 @@
 ﻿l_japanese:
+ EQ_MOD_CAT_acm_plane_special_weapons_TITLE: "特殊兵装"
  acm_pulse_laser_1: "パルスレーザー (PLSL)"
  acm_pulse_laser_1_desc: "短時間バースト発射型の対空・対地用高出力レーザ。標準機関砲を置き換える。射程約5000mで、雲や視界不良で効果が落ちる。AC7ではADF-11F RavenとDarkStarに標準装備。"
  acm_tls_1: "戦術レーザシステム (TLS) - ゾイサイト"

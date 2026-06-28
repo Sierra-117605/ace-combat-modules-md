@@ -1,4 +1,33 @@
-# HANDOFF.md — エージェント間の申し送り
+## 2026-06-28 [Codex → Claude Code / 本人] P5 TLS 表示確認と特殊兵装枠への設計変更
+
+- ステータス: 引き継ぎ
+- 関連: `instructions/2026-06-28_p5_implementation_tls.md`, `TODO.md` P5 該当行,
+  `acm-md/common/units/equipment/acm_plane_airframes.txt`,
+  `acm-md/common/units/equipment/modules/acm_plane_modules.txt`
+- 状況:
+  本人スクリーンショット確認の結果、TLS を従来どおり既存ミサイル群へ混在させる形では
+  期待どおりの見え方になっていないことを確認した。確認対象は以下。
+  - `C:\Users\tkmuh\AppData\Local\Temp\codex-clipboard-1ba6fd74-cda5-452f-9325-77c6773e8016.png`:
+    A2Aハードポイント
+  - `C:\Users\tkmuh\AppData\Local\Temp\codex-clipboard-fea73dbc-eb18-43d2-939b-45f43495a3af.png`:
+    軽ハードポイント
+  - `C:\Users\tkmuh\AppData\Local\Temp\codex-clipboard-df831bfc-edde-4aa3-b38a-b427631fea1c.png`:
+    中ハードポイント
+  - `C:\Users\tkmuh\AppData\Local\Temp\codex-clipboard-83da9d49-f650-4f01-bc16-cd76ebcc38d9.png`:
+    重ハードポイント
+  これを受け、本人から「主武器/副武器に追加する ACM 新兵装は新カテゴリ
+  `acm_plane_special_weapons` (= 特殊兵装) にまとめる。PLSL や COFFIN など
+  主武器/副武器以外は対象外」と再指示あり。
+- 実施内容:
+  - `acm_tls_1` / `acm_tls_2` のカテゴリを `acm_plane_special_weapons` へ変更
+  - 小型/艦載小型/中型の各機体フレームに、主武器/副武器スロット側の
+    `allowed_module_categories` へ `acm_plane_special_weapons` を追加
+  - ローカライズに `EQ_MOD_CAT_acm_plane_special_weapons_TITLE` を追加
+  - `SPEC.md` / `DATABASE.md` / `TODO.md` を新方針へ更新
+- 判断してほしいこと:
+  - なし。今回は本人指示に従って実装方針を確定済み
+
+# HANDOFF.md - エージェント間の申し送り
 
 本ドキュメントは Claude Code と Codex 間の作業引き継ぎメモである。
 `TODO.md`(タスクの状態管理)とは役割が異なり、ここには
@@ -8,6 +37,31 @@
 
 新しいエントリは先頭に追記する。解決済みエントリは削除せず、
 見出しに `(解決済み)` を付けて残す。
+
+---
+
+## 2026-06-28 [Codex → Claude Code / 本人] 画像ベース確認の連携ルール
+
+- ステータス: 運用ルール共有
+- 関連: `HANDOFF.md`, 今後の装備デザイナー確認全般
+- 状況:
+  本人から、今後は Codex に装備デザイナー等のスクリーンショットを送って
+  状況確認する運用があり得ると共有あり。
+- 運用メモ:
+  - Codex は受領した画像から「どのスロット画面か」「何が見えていて何が
+    見えていないか」を文章化して `HANDOFF.md` に残す
+  - Claude Code は Git 差分だけでなく `HANDOFF.md` の画像確認メモも読んで
+    状況判断する
+  - 画像そのものは Git 管理しなくてよいが、必要なら一時ファイル名と
+    判定結果を `HANDOFF.md` に残す
+- 今回の確認結果(TLS):
+  - 1枚目は **機関砲枠** で、PLSL の確認先として正しい
+  - 2枚目は **主兵装/補助兵装のミサイル枠群** で、TLS はここで確認する
+    - `A2Aハードポイント`
+    - `軽ハードポイント`
+    - `中ハードポイント`
+    - `重ハードポイント`
+  - `内蔵対空兵器` / `内蔵CAS兵器` / `内蔵多用途兵器` は今回の TLS 確認先ではない
 
 ---
 

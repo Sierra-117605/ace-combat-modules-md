@@ -858,15 +858,15 @@ variant 差別化案:
 | 区分 | モジュール | tier | 想定スロット | 出典機体 |
 |------|------------|------|--------------|----------|
 | A | COFFINコックピット | 1 | コックピット枠 | ADF-01 FALKEN(他バリエーション統合) |
-| B | TLS(機載レーザ砲) | 2 | ミサイル枠(`plane_fighter_weapons`) | ADFX-01 → ADFX-02 |
-| B | HPM(対エンジンマイクロ波) | 1 | ミサイル枠(`plane_fighter_weapons`) | XFA-33 Fenrir |
-| C | 機載レールガン | 2 | ミサイル枠(`plane_fighter_weapons`) | CFA-44 EML → X-02S Arclight |
+| B | TLS(機載レーザ砲) | 2 | 特殊兵装枠(`acm_plane_special_weapons`) | ADFX-01 → ADFX-02 |
+| B | HPM(対エンジンマイクロ波) | 1 | 特殊兵装枠(`acm_plane_special_weapons`) | XFA-33 Fenrir |
+| C | 機載レールガン | 2 | 特殊兵装枠(`acm_plane_special_weapons`) | CFA-44 EML → X-02S Arclight |
 | D | MPBM(空中炸裂) | 1 | ミサイル枠 | ADFX-01/02、ADA-01B |
 | D | 多目的全方位ミサイル | 2 | ミサイル枠 | XFA-24A ODMM → CFA-44 ADMM |
 | D | LSWM(超長射程衝撃波) | 1 | ミサイル枠 | XFA-33 Fenrir、GAF-1 Varcolac |
 | E | ベルカ系ECM | 2 | ECM/アビオ枠 | ADFX-01 Morganite → ADFX-02 全方位 |
 | E | 攻撃型ECM "Cocytus" | 1 | ECM/アビオ枠 | CFA-44 Nosferatu |
-| G | 子機搭載ドローン群 | 2 | ミサイル枠(`plane_fighter_weapons`、母機強化として抽象化) | CFA-44 UAV-45s、ADF-11F 支援UAV |
+| G | 子機搭載ドローン群 | 2 | 特殊兵装枠(`acm_plane_special_weapons`、母機強化として抽象化) | CFA-44 UAV-45s、ADF-11F 支援UAV |
 | G | UAVネットワーク制御 | 1 | `plane_drone_systems`(母機強化として抽象化) | QFA-44 + MQ-90L Quox bis |
 | H+I | 機載AI支援システム | 1 | コンピュータ/アビオ枠 | ADF-11F Copro AI + XFA-24A Earth Shaker(統合) |
 | J | PLSL(Pulse Laser) | 1 | 機関砲枠(機銃代替) | ADF-11F Raven / DarkStar |
@@ -903,9 +903,9 @@ variant 差別化案:
 | `plane_multipurpose_gun` | MD_plane_modules.txt:1978〜 | PLSL |
 | `plane_avionics` | MD_plane_modules.txt:1283〜 | COFFINコックピット、機載AI支援 |
 | `plane_countermeasures` | MD_plane_modules.txt:7985〜 | ベルカ系ECM、攻撃型ECM Cocytus |
-| `plane_fighter_weapons`(ミサイル枠) | MD_plane_modules.txt:2125〜 | TLS、HPM、機載レールガン、子機搭載ドローン群(2026-06-28 本人指示で `plane_heavy_special_design_arsenal` / `plane_droneswarm_weapon` から変更) |
-| `plane_fighter_weapons` / `plane_stealth_mr_weapons` | MD_plane_modules.txt:2125〜 | MPBM、多目的全方位ミサイル、LSWM |
-| `plane_droneswarm_weapon` | MD_plane_modules.txt:8211〜8329 | (参考実装、本MODは plane_fighter_weapons に統一) |
+| `acm_plane_special_weapons`(本MOD新カテゴリ) | ACM-MD 独自追加 | TLS、HPM、機載レールガン、子機搭載ドローン群、MPBM、多目的全方位ミサイル、LSWM |
+| `plane_fighter_weapons` / `plane_stealth_mr_weapons` | MD_plane_modules.txt:2125〜 | 参考水準(通常ミサイル群)。本MOD特殊兵装の直接追加先にはしない |
+| `plane_droneswarm_weapon` | MD_plane_modules.txt:8211〜8329 | 参考実装。子機群の挙動・数値参照元 |
 | `plane_drone_systems` | MD_plane_modules.txt:1476〜 | UAVネットワーク制御 |
 
 アーセナルバード(`mothership_equipment` line 6086)は `plane_heavy_special_design_arsenal`
@@ -957,15 +957,14 @@ variant 差別化案:
   - https://acecombat.wiki.gg/wiki/ADFX-01_Morgan
   - https://acecombat.wiki.gg/wiki/ADFX-02_Morgan
 - **HOI4実装判定**: ○ モジュール化可
-- **判定根拠(2026-06-28 本人指示で改訂)**: MD既存の `plane_fighter_weapons`
-  カテゴリに新モジュールとして追加し、通常戦闘機の `fixed_main_weapon_slot`
-  または `fixed_auxiliary_weapon_slot_1/2` に乗せる。**プレイヤーは
-  AAM等の通常ミサイルと TLS のどちらを積むかをスロットの選択肢として
-  トレードオフする**遊び方になる(本MODの方針に整合)。
-- **MD既存実装との対応**: 該当カテゴリあり。
-  `plane_fighter_weapons` 既存定義: `MD_plane_modules.txt:2125〜`。
-  通常戦闘機 (`small_plane_airframe` の `fixed_main_weapon_slot`,
-  `MD_plane_airframes.txt:54-69`) で既に受入対象。
+- **判定根拠(2026-06-28 本人再改訂)**: 本MOD独自カテゴリ
+  `acm_plane_special_weapons` に新モジュールとして追加し、通常戦闘機の
+  `fixed_main_weapon_slot` または `fixed_auxiliary_weapon_slot_1/2` に
+  **新しい「特殊兵装」グループ**として表示させる。通常AAM群と同カテゴリへ
+  混在させないことで、AC系兵装のまとまりを視認しやすくする。
+- **MD既存実装との対応**: 直接対応カテゴリは無い。`plane_fighter_weapons`
+  (`MD_plane_modules.txt:2125〜`) を数値水準の参照元としつつ、
+  `allowed_module_categories` を ACM-MD 側で拡張して受入させる。
 - **備考**: 2 tier。ベルカ系技術ツリーの基幹モジュール。
   ADF-01 FALKEN は ADFX-02 残骸由来のため同系統技術として備考に明記。
   アーセナルバード(`mothership_equipment`)には本モジュールを乗せない
@@ -984,12 +983,11 @@ variant 差別化案:
 - **典拠URL**:
   - https://acecombat.wiki.gg/wiki/XFA-33_Fenrir
 - **HOI4実装判定**: ○ モジュール化可
-- **判定根拠(2026-06-28 本人指示で改訂)**: TLSと同じく
-  `plane_fighter_weapons` カテゴリへの新モジュール追加で、通常戦闘機の
-  ミサイル枠で受入。
-- **MD既存実装との対応**: 該当カテゴリあり(`MD_plane_modules.txt:2125〜`)。
-  TLSと同じスロット選択肢を共有(プレイヤーは TLS or HPM or 通常AAM を
-  選ぶトレードオフ)。
+- **判定根拠(2026-06-28 本人再改訂)**: TLSと同じく
+  `acm_plane_special_weapons` カテゴリへの新モジュール追加で、通常戦闘機の
+  主武器/副武器に「特殊兵装」グループとして表示。
+- **MD既存実装との対応**: 直接対応カテゴリは無い。数値水準のみ
+  `plane_fighter_weapons` (`MD_plane_modules.txt:2125〜`) を参照。
 - **備考**: TLSと差別化するため、効果を「敵機機動性低下」または
   「迎撃命中率ボーナス」とする想定(物理ダメージではなく機能無力化)。
 
@@ -1009,11 +1007,11 @@ variant 差別化案:
   - https://acecombat.wiki.gg/wiki/CFA-44_Nosferatu
   - https://acecombat.wiki.gg/wiki/X-02S_Strike_Wyvern
 - **HOI4実装判定**: ○ モジュール化可
-- **判定根拠(2026-06-28 本人指示で改訂)**: TLSと同じく
-  `plane_fighter_weapons` カテゴリへの新モジュール追加で、通常戦闘機の
-  ミサイル枠で受入。
-- **MD既存実装との対応**: 該当カテゴリあり(`MD_plane_modules.txt:2125〜`)。
-  TLS / HPM と同じスロット選択肢を共有。
+- **判定根拠(2026-06-28 本人再改訂)**: TLSと同じく
+  `acm_plane_special_weapons` カテゴリへの新モジュール追加で、通常戦闘機の
+  主武器/副武器に「特殊兵装」グループとして表示。
+- **MD既存実装との対応**: 直接対応カテゴリは無い。数値水準のみ
+  `plane_fighter_weapons` (`MD_plane_modules.txt:2125〜`) を参照。
 - **備考**: アリコーンの艦載大型レールキャノン(超兵器セクション・艦載モジュール)
   とは別物。本モジュールは機載小型版。
 
@@ -1030,9 +1028,10 @@ variant 差別化案:
   - https://acecombat.wiki.gg/wiki/ADFX-01_Morgan
   - https://acecombat.wiki.gg/wiki/ADA-01B_ADLER
 - **HOI4実装判定**: ○ モジュール化可
-- **判定根拠**: MD既存の `plane_fighter_weapons` または `plane_stealth_mr_weapons`
-  カテゴリに新モジュールとして追加。
-- **MD既存実装との対応**: 該当カテゴリあり。
+- **判定根拠**: 本MOD独自 `acm_plane_special_weapons` カテゴリに新モジュール
+  として追加。必要なら数値参照元として `plane_fighter_weapons` /
+  `plane_stealth_mr_weapons` を参照。
+- **MD既存実装との対応**: 数値参照元あり。
   `plane_fighter_weapons` 既存定義群: `MD_plane_modules.txt:2125〜`。
   `plane_stealth_mr_weapons` は `:2450〜`。
 - **備考**: 対群効果(密集編隊への複数命中ボーナス等)で差別化。
@@ -1070,7 +1069,7 @@ variant 差別化案:
   - https://acecombat.wiki.gg/wiki/XFA-33_Fenrir
   - https://acecombat.wiki.gg/wiki/GAF-1_Varcolac
 - **HOI4実装判定**: ○ モジュール化可
-- **判定根拠**: `plane_fighter_weapons` または `plane_heavy_nav_weapons`
+- **判定根拠**: `acm_plane_special_weapons` または `plane_heavy_nav_weapons`
   (重対艦兵装)カテゴリに新モジュールとして追加。
 - **MD既存実装との対応**: 該当カテゴリあり。
   `plane_heavy_nav_weapons` 既存定義: `MD_plane_modules.txt:6277〜`。
@@ -1130,15 +1129,14 @@ variant 差別化案:
   - https://acecombat.wiki.gg/wiki/CFA-44_Nosferatu
   - https://acecombat.wiki.gg/wiki/ADF-11F_Raven
 - **HOI4実装判定**: ○ モジュール化可(母機ステータス強化として抽象化)
-- **判定根拠(2026-06-28 本人指示で改訂)**: MD既存の
-  `plane_fighter_weapons` カテゴリに新モジュールとして追加し、通常戦闘機の
-  ミサイル枠(`fixed_main_weapon_slot` / `auxiliary_weapon_slot_1/2`)に
-  乗せる。本来 MD に存在する `plane_droneswarm_weapon` カテゴリは
-  アーセナルバード専用枠で通常戦闘機には乗らないため、本MODは
-  ミサイル枠カテゴリで実装する(プレイヤーはAAMと子機ドローン群の
-  どちらを積むかをトレードオフ)。効果は MD既存 `weap_droneswarm_fighter_1` 系の
+- **判定根拠(2026-06-28 本人再改訂)**: 本MOD独自の
+  `acm_plane_special_weapons` カテゴリに新モジュールとして追加し、通常戦闘機の
+  主武器/副武器に「特殊兵装」グループとして乗せる。本来 MD に存在する
+  `plane_droneswarm_weapon` カテゴリはアーセナルバード専用枠で通常戦闘機には
+  乗らないため、本MODは専用カテゴリを新設して分離表示する。効果は
+  MD既存 `weap_droneswarm_fighter_1` 系の
   `add_stats { air_attack +N, air_agility +N }` パターンを下方修正して継承。
-- **MD既存実装との対応**: 該当カテゴリあり。
+- **MD既存実装との対応**: 数値参照元あり。
   `plane_fighter_weapons` 既存定義: `MD_plane_modules.txt:2125〜`。
   参考実装の挙動として MD `plane_droneswarm_weapon`
   (`MD_plane_modules.txt:8211-8329`)の `add_stats` パターンを参照
