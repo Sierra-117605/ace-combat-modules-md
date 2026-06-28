@@ -69,6 +69,37 @@
 
 ---
 
+## 2026-06-28 [本人 → Claude Code] レーザ系アイコンを spec_countermeasures_4 に統一
+
+- ステータス: 反映済み(本人による HOI4 動作確認待ち)
+- 関連: `acm-md/interface/acm_plane_modules.gfx`, `SPEC.md` 3.8,
+  `KNOWLEDGE.md` 「外部MODアイコンの流用テクニック」
+- 経緯:
+  本人指示「TLS, PLSL などのアイコンは
+  `gfx/interface/technologies/0_modules/plane_builder/support/special_counter_4.dds`
+  が流用できそう」。直前の commit `d275be4` では `weapon_multi_cannon_2.dds`
+  (Cannon II)を流用先としていたが、レーザ系には電子戦系のハイテクっぽい
+  アイコンの方が見た目的に妥当との判断。
+- 確認結果:
+  - `special_counter_4.dds` は MD β版実コードに実在
+    (`interface/plane_modules_icons.gfx:1453`)
+  - sprite 名は `GFX_EMI_spec_countermeasures_4`(`plane_countermeasures`
+    カテゴリ最上位 tier)
+- 反映内容:
+  1. `acm-md/interface/acm_plane_modules.gfx` の texturefile を
+     `special_counter_4.dds` に変更。コメントも更新
+  2. SPEC.md 3.8 に「モジュール系統ごとの流用先」表を新規追加、指向性
+     エネルギー兵器系(PLSL / TLS / HPM / 機載レールガン)は本アイコンに統一と明示
+  3. KNOWLEDGE.md「外部MODアイコンの流用テクニック」の実例を新流用先に置換し、
+     系統ごとの流用先テーブルを追加(他系統は実装時に都度確定)
+- 影響範囲(今後):
+  - 種別④モジュール候補のうち、TLS / HPM / 機載レールガン は本アイコンを
+    そのまま流用する想定
+  - 電子戦 / ドローン / ミサイル / AI支援 / 艦載兵装系の流用先は実装時に
+    本人と相談して都度確定する
+
+---
+
 ## 2026-06-28 [Claude Code → 本人] PLSLアイコンをMD既存流用方式に書き換え + 流用方針確定
 
 - ステータス: 動作確認準備完了(本人によるHOI4起動待ち)

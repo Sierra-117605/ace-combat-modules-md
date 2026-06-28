@@ -180,12 +180,19 @@ HOI4 mod の標準ディレクトリ構造に従う:
   本MODでは新規 `.dds` 実体を持たず、自MODの `.gfx` でMD既存の `texturefile`
   パスを直接参照する形を基本とする。HOI4 のテクスチャ探索パスは
   自MOD → MD → ベースゲーム の順で解決されるため、MOD依存があれば動作する。
-  - 実例(PLSL): `acm-md/interface/acm_plane_modules.gfx` で
-    `GFX_EMI_acm_pulse_laser_1` を定義し、`texturefile` に MD既存
-    `gfx/interface/technologies/0_modules/plane_builder/weapons/weapon_multi_cannon_2.dds`
-    を参照
-  - 流用が困難な場合(MD既存に視覚的に近いアイコンが無い場合)に限り、
-    新規 `.dds` を自MOD内に追加する
+- **モジュール系統ごとの流用先(2026-06-28 本人指定、随時拡張)**:
+  - **指向性エネルギー兵器系**(PLSL / TLS / HPM / 機載レールガン 等) →
+    `gfx/interface/technologies/0_modules/plane_builder/support/special_counter_4.dds`
+    (MD既存 `GFX_EMI_spec_countermeasures_4` 由来。ハイテク兵装らしい見た目で
+    レーザ・電磁兵器系のアイコンとして統一流用)
+  - 他系統(電子戦 / ドローン / ミサイル / AI支援 / 艦載兵装 等)は実装時に
+    本人と相談して都度確定
+- 実例(PLSL): `acm-md/interface/acm_plane_modules.gfx` で
+  `GFX_EMI_acm_pulse_laser_1` を定義し、`texturefile` に MD既存
+  `gfx/interface/technologies/0_modules/plane_builder/support/special_counter_4.dds`
+  を参照
+- 流用が困難な場合(MD既存に視覚的に近いアイコンが無い場合)に限り、
+  新規 `.dds` を自MOD内に追加する
 - 詳細なサイズ・ヘッダ情報・実例は `KNOWLEDGE.md`
   「アイコン .dds 仕様 + .gfx 登録」参照
 
