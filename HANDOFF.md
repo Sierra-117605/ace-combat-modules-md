@@ -11,6 +11,45 @@
 
 ---
 
+## 2026-06-28 [Claude Code → Codex] P5 試作モジュール第1弾 PLSL 実装依頼
+
+- ステータス: Codex 着手待ち
+- 関連: `instructions/2026-06-28_p5_prototype_plsl.md`(指示書)
+- 経緯:
+  本人から「以降の進行は任せる」との指示を再確認。Claude Code の判断で次に
+  進めるのは P5 試作 1モジュール(PLSL)が最も価値が高いと判断:
+  - P3-A(ローカライズキー命名規則)、P3-B(アイコン .dds + .gfx 登録)、
+    P3 モジュール定義書式 の **実地検証** になる
+  - PLSL は機関砲スロット代替で MD既存戦闘機にそのまま追加可、**本命作品
+    選定(P4)が未定でも実装試行可能**
+  - 本MOD初の「動く実装」となり、以降の本格実装の足場が確立する
+- 指示書概要:
+  - 実装対象は PLSL(Pulse Laser、`acm_pulse_laser_1`)1モジュール、
+    `plane_multipurpose_gun` カテゴリで MD既存スロットへ追加
+  - ファイル構成は **リポジトリ直下 `acm-md/` サブディレクトリ** に MOD一式
+    (`descriptor.mod`、モジュール定義、.gfx、.dds、ローカライズ英日)
+  - アイコンは Steam β版MD の既存機関砲アイコンを流用(第1案、軽量)
+  - ローカライズ .yml は **UTF-8 BOM必須**、ID prefix `acm_` 必須
+  - 重要な注意点(KNOWLEDGE.md 過去ハマり事項13項目より):
+    - 項目2「.gfx 1ファイル sprite 数 約300未満」
+    - 項目6「ID にハイフン使用不可」
+    - 項目7「default_modules の slot category 不一致 → autosave クラッシュ」
+    - 項目10「.yml は BOM 必須」
+- スロット適合確認(指示書内で必須化):
+  既存戦闘機アーキタイプ(`small_plane_airframe`, `medium_plane_airframe` 等)
+  の `module_slots` 内で `plane_multipurpose_gun` を受け入れるスロットが
+  あるか確認。受け入れない場合は MD アーキタイプ上書きが必要となり、
+  HANDOFF.md で停止して本人判断を仰ぐこと(MDの descriptor.mod が
+  `common/units/equipment` を replace_path 宣言しているため、安易な上書きは危険)
+- Codex への期待:
+  - Codex の作業範囲は ファイル一式作成 + commit/push まで
+  - HOI4 起動による動作確認は本人実施(指示書末尾に手順を再掲済み)
+  - スロット適合結果(具体的なアーキタイプ名・スロット名)を完了報告で必ず記載
+- Claude Code 側の対応:
+  本指示書 push 後は再び待機モード。Codex の完了報告 or 判断要請を待機。
+
+---
+
 ## 2026-06-28 [Claude Code] P3 全完了確認 + 残務整理、待機モードへ
 
 - ステータス: P2(種別⑤を除く)+ P3 完了。Claude Code は待機モード。
