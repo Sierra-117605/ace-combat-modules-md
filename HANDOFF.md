@@ -11,6 +11,64 @@
 
 ---
 
+## 2026-06-28 [本人 → Claude Code] アイコン素材方針: MD既存アイコン流用を最優先
+
+- ステータス: SPEC.md 3.8 に反映済み
+- 関連: `SPEC.md` 3.8 「アイコン素材の優先順位」サブセクション
+- 経緯:
+  本人から「武装のアイコンに関しては既存のものを流用できそうなら流用したい」
+  との方針確認。PLSL 試作指示書では既に第1案(MD既存機関砲アイコン流用)を
+  推奨済みだが、**本MOD全体の方針として確定**するため SPEC.md に明記。
+- 確定方針(優先順位):
+  1. MD既存アイコン流用(最優先)— Steam β/正式版/MDET の .dds をコピーして
+     ファイル名のみ本MOD命名規則に変更
+  2. HOI4本体アイコン流用
+  3. 公開素材(CC0 等)流用
+  4. 新規作成(最終手段、プレースホルダ段階運用許容)
+- Codex への運用ルール:
+  各モジュール実装指示書作成時に、**どの既存アイコンを流用するか具体候補を
+  1つ以上挙げる**こと。挙げられない場合は HANDOFF.md で判断を仰ぐ。
+- 現行 PLSL 試作指示書(`2026-06-28_p5_prototype_plsl.md`)への影響:
+  既に第1案(MD既存機関砲アイコン流用)を推奨済みのため変更不要。
+  Codex はそのまま着手してよい。
+
+---
+
+## 2026-06-28 [Codex → Claude Code / 本人] P5 試作 PLSL 実装完了、本人による動作確認待ち
+
+- ステータス: 動作確認待ち
+- 関連: `instructions/2026-06-28_p5_prototype_plsl.md`,
+  `acm-md/descriptor.mod`, `acm-md/common/units/equipment/modules/acm_plane_modules.txt`,
+  `acm-md/interface/acm_plane_modules.gfx`,
+  `acm-md/localisation/english/acm_plane_modules_l_english.yml`,
+  `acm-md/localisation/japanese/acm_plane_modules_l_japanese.yml`
+- 状況:
+  PLSL 試作モジュール `acm_pulse_laser_1` を `acm-md/` 配下に実装し、
+  既存機関砲アイコン流用・英日ローカライズ・descriptor まで作成した。
+  HOI4 起動による表示確認と autosave 安全性確認は本人実施待ち。
+- スロット適合の確認結果:
+  - `small_plane_airframe` の `fixed_gun_slot` が `plane_multipurpose_gun` を受け入れる
+    ([MD_plane_airframes.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/MD_plane_airframes.txt:70>))
+  - `cv_small_plane_airframe` の `fixed_gun_slot` も同様
+    ([MD_plane_airframes.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/MD_plane_airframes.txt:1189>))
+  - `medium_plane_airframe` の `fixed_gun_slot` も同様
+    ([MD_plane_airframes.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/MD_plane_airframes.txt:2301>))
+  - このため **今回の実装では MD アーキタイプ上書き不要**
+- 実装内容:
+  - モジュールID: `acm_pulse_laser_1`
+  - カテゴリ: `plane_multipurpose_gun`
+  - icon sprite: `GFX_EMI_acm_pulse_laser_1`
+  - アイコン実体は MD 既存 `weapon_multi_cannon_2.dds` をコピー流用
+- 本人確認手順:
+  1. `acm-md/` 配下を HOI4 の MOD フォルダへ配置
+  2. MD β版 + ACM-MD を有効化
+  3. ゲーム起動 → 航空機デザイナー → 戦闘機系 → 機関砲スロット
+  4. `Pulse Laser (PLSL)` / `パルスレーザー (PLSL)` が選択肢に出るか確認
+  5. 選択して設計保存し、無効化や autosave クラッシュがないか確認
+  6. `logs/error.log` と `logs/game.log` を確認
+
+---
+
 ## 2026-06-28 [Claude Code → Codex] P5 試作モジュール第1弾 PLSL 実装依頼
 
 - ステータス: Codex 着手待ち
