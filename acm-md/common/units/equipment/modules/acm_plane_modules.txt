@@ -25,4 +25,58 @@ equipment_modules = {
 
 		xp_cost = 15
 	}
+
+	acm_tls_1 = {
+		abbreviation = "tls1"
+		category = plane_fighter_weapons
+		sfx = sfx_ui_sd_modules_turret
+		add_equipment_type = fighter
+
+		add_stats = {
+			air_attack = 15
+			air_agility = -3
+			air_defence = -2
+			build_cost_ic = 60
+			reliability = -0.08
+			supply_consumption = 0.02
+		}
+
+		build_cost_resources = {
+			chromium = 2
+			microchips = 2
+			composites = 1
+		}
+
+		xp_cost = 25
+	}
+
+	acm_tls_2 = {
+		abbreviation = "tls2"
+		category = plane_fighter_weapons
+		parent = acm_tls_1
+		sfx = sfx_ui_sd_modules_turret
+		add_equipment_type = fighter
+
+		add_stats = {
+			air_attack = 25
+			air_agility = -2
+			air_defence = -1
+			build_cost_ic = 100
+			reliability = -0.05
+			supply_consumption = 0.02
+		}
+
+		build_cost_resources = {
+			chromium = 3
+			microchips = 3
+			composites = 2
+		}
+
+		can_convert_from = {
+			module = acm_tls_1
+			convert_cost_ic = 50
+		}
+
+		xp_cost = 25
+	}
 }

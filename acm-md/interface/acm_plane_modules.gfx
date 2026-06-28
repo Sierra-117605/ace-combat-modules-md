@@ -8,4 +8,12 @@ spriteTypes = {
 		name = "GFX_EMI_acm_pulse_laser_1"
 		texturefile = "gfx/interface/technologies/0_modules/plane_builder/support/special_counter_4.dds"
 	}
+	spriteType = {
+		name = "GFX_EMI_acm_tls_1"
+		texturefile = "gfx/interface/technologies/0_modules/plane_builder/support/special_counter_4.dds"
+	}
+	spriteType = {
+		name = "GFX_EMI_acm_tls_2"
+		texturefile = "gfx/interface/technologies/0_modules/plane_builder/support/special_counter_4.dds"
+	}
 }

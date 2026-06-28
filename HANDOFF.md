@@ -11,6 +11,41 @@
 
 ---
 
+## 2026-06-28 [Codex → Claude Code / 本人] P5 TLS 実装完了、本人動作確認待ち
+
+- ステータス: 動作確認待ち
+- 関連: `instructions/2026-06-28_p5_implementation_tls.md`,
+  `acm-md/common/units/equipment/modules/acm_plane_modules.txt`,
+  `acm-md/interface/acm_plane_modules.gfx`,
+  `acm-md/localisation/english/acm_plane_modules_l_english.yml`,
+  `acm-md/localisation/japanese/acm_plane_modules_l_japanese.yml`
+- 状況:
+  TLS 2tier (`acm_tls_1`, `acm_tls_2`) を既存 `acm-md/` に追記した。
+  `acm_tls_2` は `parent = acm_tls_1` と
+  `can_convert_from = { module = acm_tls_1 convert_cost_ic = 50 }` を設定済み。
+- 数値水準の参照元:
+  - MD既存 `plane_fighter_weapons` の light hardpoint 系
+    ([MD_plane_modules.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/modules/MD_plane_modules.txt:2125>))
+  - TLS は通常ミサイルより高コスト・高火力の実験兵器として上方寄せ
+- スロット適合:
+  - `small_plane_airframe` の `fixed_main_weapon_slot`
+    ([MD_plane_airframes.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/MD_plane_airframes.txt:54>))
+  - `medium_plane_airframe` の `fixed_main_weapon_slot`
+    ([MD_plane_airframes.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/MD_plane_airframes.txt:2286>))
+  - 同系の `fixed_auxiliary_weapon_slot_1/2/3` も `plane_fighter_weapons` を受け入れる
+  - このため **MD アーキタイプ上書き不要**
+- アイコン:
+  - `special_counter_4.dds` を texturefile 直接参照
+  - PLSL / TLS / 今後のレーザ系で統一運用
+- 本人確認手順:
+  1. `acm-md/` 配下を MOD フォルダへ上書きコピー
+  2. HOI4 起動 → 航空機デザイナー → 戦闘機系
+  3. 主兵装または補助兵装スロットで `TLS - Zoisite` / `TLS - Directional` を確認
+  4. `Directional` が `Zoisite` からの改修として出るか確認
+  5. 設計保存後に autosave 通過と `logs/error.log` 無エラーを確認
+
+---
+
 ## 2026-06-28 [本人 → Claude Code] アイコン素材方針: MD既存アイコン流用を最優先
 
 - ステータス: SPEC.md 3.8 に反映済み
