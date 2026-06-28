@@ -262,25 +262,25 @@ DATABASE.md の判定結果を踏まえ、最小スコープで1〜2モジュー
 | 多目的全方位ミサイル | plane_fighter_weapons | 同上 | モジュール追加のみ |
 | LSWM | plane_fighter_weapons または plane_heavy_nav_weapons | 同上 | モジュール追加のみ |
 | UAVネットワーク制御 | plane_drone_systems | `fixed_main_weapon_slot` | モジュール追加のみ |
-| **TLS** | plane_heavy_special_design_arsenal | 通常戦闘機に該当スロット無し | **要 Special Project 経由スロット解放** |
-| **HPM** | 同上 | 同上 | **要 Special Project 経由スロット解放** |
-| **機載レールガン** | 同上 | 同上 | **要 Special Project 経由スロット解放** |
-| **子機搭載ドローン群** | plane_droneswarm_weapon | 同上 | **要 Special Project 経由スロット解放** |
+| **TLS** | plane_fighter_weapons(2026-06-28 本人指示で改訂) | `fixed_main_weapon_slot` / `auxiliary` | モジュール追加のみ |
+| **HPM** | 同上 | 同上 | モジュール追加のみ |
+| **機載レールガン** | 同上 | 同上 | モジュール追加のみ |
+| **子機搭載ドローン群** | 同上 | 同上 | モジュール追加のみ |
 
-#### 実装の順序方針(2026-06-28 確定)
+#### 実装の順序方針(2026-06-28 改訂)
 
-- **第1群「モジュール追加のみで通常戦闘機に乗るもの」** を優先実装。
-  PLSL(完了)+ 8件の合計9件は本MOD単体で完結し、MD アーキタイプを
-  上書きしない安全な実装になる
-- **第2群「Special Project 経由でスロット解放が必要なもの」**
-  (TLS / HPM / 機載レールガン / 子機搭載ドローン群)は、`sp_arsenal_bird`
-  パターンに倣う Special Project を追加して、専用スロットを解放する設計に
-  する。MD descriptor.mod が `common/units/equipment` を replace_path 宣言
-  しているため、アーキタイプ直接上書きは衝突リスクが高く、Special Project 経由が
-  より安全
-- **第3群「艦載モジュール5件」**(SRC-03a超大型レールキャノン / 補助レールガン /
+- 種別④13モジュールは **全件が「モジュール追加のみで通常戦闘機に乗る」第1群**
+  となった。本人指示「TLS / HPM / レールガン / 子機ドローン群はミサイル枠
+  (`plane_fighter_weapons`)に入れればよい」に基づき、特殊兵装枠
+  (`plane_heavy_special_design_arsenal`)からミサイル枠への移行で実現。
+  プレイヤーは AAM等の通常ミサイルと これら特殊兵装のどちらを積むかを
+  スロットでトレードオフする遊び方になる。
+- **アーセナルバード** (`mothership_equipment`) には本MODから追加モジュールを
+  乗せない(アーセナルバードは MD既存実装で完結のため)。
+- **艦載モジュール5件**(SRC-03a超大型レールキャノン / 補助レールガン /
   バースト弾頭ミサイル / 潜水艦用艦上滑走路 / SLUAV発射ベイ)は、新規
-  「超大型潜水艦」アーキタイプ + Special Project とセットで実装する
+  「超大型潜水艦」アーキタイプ + Special Project とセットで実装する。
+  これは航空機モジュールとは独立した実装ラインで、後続フェーズで対応する。
 
 ---
 
