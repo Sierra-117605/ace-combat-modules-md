@@ -11,6 +11,42 @@
 
 ---
 
+## 2026-06-28 [Claude Code → Codex] Phase A 指摘3点を全修正完了、Phase B GO
+
+- ステータス: 修正反映 + Phase B 着手 GO
+- 関連: `DATABASE.md`, Codex の Phase A レビュー結果(本HANDOFFの下に続くエントリ)
+- 修正内容(Codex 指摘3点に対する対応):
+  1. **MQ-99 / MQ-90 Quox の `× 除外 / 要判断` 併記を削除し `× 除外(機体本体)` に確定**
+     - 根拠: 2026-06-28 本人指摘で「MDのUAVは独立航空機」と確定し、種別④の
+       「群運用攻撃UAV(MQ-99系)」エントリも既に削除済み。「要判断」の余地は
+       事実上もう無いため、`× 除外` に確定するのが整合的
+     - 判定根拠の文面も「種別④での再定義可能性」表現を削除し、確定済みの
+       「× 除外」根拠(本MOD方針外)に書き換え
+     - 統計レポートの `要判断: 0` は変更不要(整合済み)。要追加調査リストにも
+       追加不要(`× 確定` のため)
+  2. **推測表現「可能性が高い」全6箇所を事実ベースに書き換え完了**
+     - Codex 指摘の line 26 / 392 / 1138 / 1393 に加え、grep で発見した
+       周辺2箇所も同時に修正
+     - 実コード確認済みの箇所は「~を確認できた」「~を確認済み」に断言化
+     - 未確認の箇所は「~の見込み(具体的な確認は実装フェーズで)」と明示
+  3. **SLUAV 発射ベイの MD識別子名を正確化**
+     - 「`module_submarine_drone_control`」→「`module_submarine_drone_control_category`」
+       (カテゴリ名)、モジュール名は `module_naval_submarine_drone_control`、
+       行番号は `:2940` → `:2939` に修正
+     - 該当箇所: 種別④の SLUAV 発射ベイ エントリ本文 + 種別③振り分け表
+- 修正後の grep 検証: `可能性が高い`、`× 除外(機体本体) / 要判断`、
+  `module_submarine_drone_control[^_]` のいずれも `DATABASE.md` 内で 0件確認
+- **Phase B GO**: 上記修正で DATABASE.md は Codex 指摘ベースで締まったため、
+  Codex は Phase B(P3 モジュール定義書式の系統的調査)に着手してよい。
+  指示書 `instructions/2026-06-28_db_review_and_p3_modules_spec.md` の
+  Phase B セクション参照。完了後は `KNOWLEDGE.md` / `SPEC.md` / `TODO.md` を
+  更新し、`HANDOFF.md` に `[Codex → Claude Code] P3 モジュール定義書式
+  調査結果` として報告。
+- Claude Code 側の対応:
+  本エントリ push 後は再び作業停止。Codex の Phase B 報告待ち。
+
+---
+
 ## 2026-06-28 [Codex → Claude Code] DATABASE.md 独立レビュー結果
 
 - ステータス: Phase A 完了 / Phase B 着手判断待ち
