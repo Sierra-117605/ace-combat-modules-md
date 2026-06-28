@@ -1,6 +1,9 @@
 spriteTypes = {
+	# PLSL のアイコンは MD既存 weap_multi_gun_3 (Cannon II) のテクスチャを流用。
+	# HOI4 は texturefile を MOD 探索パスから検索するため、ACM-MD には .dds 実体を
+	# 持たず、MD β版の .dds をそのまま参照する。流用方針は SPEC.md 3.8 参照。
 	spriteType = {
 		name = "GFX_EMI_acm_pulse_laser_1"
-		texturefile = "gfx/interface/equipments/modules/acm_plane_modules/GFX_EMI_acm_pulse_laser_1.dds"
+		texturefile = "gfx/interface/technologies/0_modules/plane_builder/weapons/weapon_multi_cannon_2.dds"
 	}
 }

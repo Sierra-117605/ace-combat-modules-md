@@ -69,6 +69,49 @@
 
 ---
 
+## 2026-06-28 [Claude Code → 本人] PLSLアイコンをMD既存流用方式に書き換え + 流用方針確定
+
+- ステータス: 動作確認準備完了(本人によるHOI4起動待ち)
+- 関連: `acm-md/interface/acm_plane_modules.gfx`, `SPEC.md` 3.8,
+  `KNOWLEDGE.md` 「外部MODアイコンの流用テクニック」
+- 経緯:
+  本人から「武装のアイコンに関しては既存のものを流用できそうなら流用したい」
+  という方針指示を受領。Codex の PLSL 初回実装(commit `e7f0bd8`)では .dds を
+  本MOD配下にコピーする方式だった(指示書通り)が、これを流用方式に書き換え。
+- 変更内容:
+  1. `acm-md/interface/acm_plane_modules.gfx` の `texturefile` を MD既存
+     `gfx/interface/technologies/0_modules/plane_builder/weapons/weapon_multi_cannon_2.dds`
+     (`weap_multi_gun_3` Cannon II 流用)に変更
+  2. `acm-md/gfx/interface/equipments/modules/acm_plane_modules/GFX_EMI_acm_pulse_laser_1.dds`
+     とその空ディレクトリ群を削除
+  3. SPEC.md 3.8 に「アイコン素材方針: MD既存アイコン流用を最優先」を明示追記
+  4. KNOWLEDGE.md に「外部MODアイコンの流用テクニック」を新規セクションで追記
+     (texturefile 直接参照のしくみ、利点、注意点、流用元アイコン探索手順)
+- 流用元の選定根拠:
+  PLSL は「高出力ハイテク機関砲」枠なので、MD既存 `plane_multipurpose_gun`
+  カテゴリの最上位 `weap_multi_gun_3`(Cannon II)が視覚的に最も近い。
+  Steam β版 `interface/plane_modules_icons.gfx:908` で texturefile を確認済み。
+- 本人による動作確認手順(再掲):
+  1. `acm-md/` 配下を HOI4 MOD フォルダにコピー
+  2. HOI4 ランチャーで MD β版 + ACM-MD を両方有効化
+  3. ゲーム起動 → 任意の国 → 装備デザイナー → 戦闘機 → 機関砲スロット
+  4. **PLSL(パルスレーザー)** が選択肢に表示され、Cannon II と同じアイコンで
+     表示されることを確認
+  5. PLSL を選んで保存 → autosave クラッシュしないこと
+  6. `logs/error.log` と `logs/game.log` を起動後に確認
+  - スロット適合は Codex 確認済み: `small_plane_airframe` /
+    `cv_small_plane_airframe` / `medium_plane_airframe` の `fixed_gun_slot`
+- 結果報告(本人へのお願い):
+  動作確認結果(成功 / 失敗+エラー内容)を、HANDOFF.md または直接の指示で
+  Claude Code / Codex に伝えていただきたい。成功なら v0.1.0 タグを切る判断、
+  失敗ならエラー解析へ進む。
+- 流用方針の今後の適用範囲:
+  本方針は **武装アイコン全般**(レーザ、ミサイル、レールガン、ECM、ドローン等)に
+  適用。今後追加するモジュールでは、MD既存に視覚的に近いアイコンがあれば
+  必ず流用を検討する。
+
+---
+
 ## 2026-06-28 [Claude Code → Codex] P5 試作モジュール第1弾 PLSL 実装依頼
 
 - ステータス: Codex 着手待ち

@@ -176,6 +176,16 @@ HOI4 mod の標準ディレクトリ構造に従う:
   2系統を併用している
 - 本MOD側は `plane_modules` / `airframes_medium` / `special_projects` など
   **用途別に別 `.gfx` を追加**して分割管理する
+- **アイコン素材方針(2026-06-28 本人確定)**: **MD既存アイコンの流用を最優先**。
+  本MODでは新規 `.dds` 実体を持たず、自MODの `.gfx` でMD既存の `texturefile`
+  パスを直接参照する形を基本とする。HOI4 のテクスチャ探索パスは
+  自MOD → MD → ベースゲーム の順で解決されるため、MOD依存があれば動作する。
+  - 実例(PLSL): `acm-md/interface/acm_plane_modules.gfx` で
+    `GFX_EMI_acm_pulse_laser_1` を定義し、`texturefile` に MD既存
+    `gfx/interface/technologies/0_modules/plane_builder/weapons/weapon_multi_cannon_2.dds`
+    を参照
+  - 流用が困難な場合(MD既存に視覚的に近いアイコンが無い場合)に限り、
+    新規 `.dds` を自MOD内に追加する
 - 詳細なサイズ・ヘッダ情報・実例は `KNOWLEDGE.md`
   「アイコン .dds 仕様 + .gfx 登録」参照
 

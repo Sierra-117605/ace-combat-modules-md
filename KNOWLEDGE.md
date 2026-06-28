@@ -763,6 +763,72 @@ Special Project 側は `icon = GFX_sp_*` を明示指定し、`.gfx` で対応 s
 `sp_tag_pilotless_vehicles` を使う構成なら、`sp_arsenal_bird` と同じ流れで
 equipment と専用 module を同時解放できる。
 
+#### 外部MODアイコンの流用テクニック(2026-06-28 確定)
+
+本MODの **アイコン素材方針は「MD既存アイコン流用を最優先」**(SPEC.md 3.8)。
+新規 `.dds` を作るよりも、MD既存の `.dds` を流用する方が安全・軽量・
+意図明示の点で有利。具体的な実装テクニックは以下:
+
+##### .gfx の texturefile に MD既存パスを直接書く
+
+HOI4 はテクスチャ探索パスを **自MOD → 依存MOD(MD) → ベースゲーム** の順で
+解決する。よって本MODは `.dds` 実体を持たず、`.gfx` の `texturefile` だけを
+MD既存のパスに向ければ、HOI4 が自動的に MD MOD フォルダから .dds を引いてくる。
+
+実例(PLSL、2026-06-28 実装):
+
+```
+spriteTypes = {
+    spriteType = {
+        name = "GFX_EMI_acm_pulse_laser_1"
+        texturefile = "gfx/interface/technologies/0_modules/plane_builder/weapons/weapon_multi_cannon_2.dds"
+    }
+}
+```
+
+これは MD既存の `weap_multi_gun_3` (Cannon II) のアイコンを流用したもの。
+本MOD側に `.dds` 実体は無いが、HOI4 ロード時に MD MOD フォルダの該当ファイルが
+解決される。
+
+この方式の利点:
+
+- 本MODのリポジトリサイズが小さい
+- MD 側でアイコン .dds が更新されても本MODが追従不要(同じパスが
+  存在する限り自動反映される)
+- 「流用してます」と意図が `.gfx` 1行で明示される
+- ライセンス上もファイルコピーを伴わないので安全
+
+注意点:
+
+- MD 側でファイルパス自体が変わると参照切れ(その場合は本MODの `.gfx` を
+  更新)
+- MD β版と Steam 正式版で `texturefile` のパスが異なる可能性は要確認
+  (現時点では同一前提で運用)
+- 自MOD名と同名の sprite 名(例: `GFX_EMI_<acm_module_id>`)を必ず使い、
+  既存sprite名と衝突させないこと
+
+##### 流用元アイコンの探し方
+
+1. MD既存モジュールの一覧から類似機能・類似カテゴリのものを選ぶ
+2. その `GFX_EMI_<id>` 登録箇所を `interface/plane_modules_icons.gfx` 等で
+   `grep` して `texturefile` を抜き出す
+3. 本MOD `.gfx` でその texturefile を別 sprite 名(`GFX_EMI_acm_<id>`)で
+   再登録する
+
+例:
+
+```
+$ grep -A1 'weap_multi_gun_3' interface/plane_modules_icons.gfx
+        name = "GFX_EMI_weap_multi_gun_3"
+        texturefile = "gfx/interface/technologies/0_modules/plane_builder/weapons/weapon_multi_cannon_2.dds"
+```
+
+##### 流用が困難な場合の方針
+
+MD既存に視覚的に近いアイコンが無い場合のみ、自MOD内に `.dds` を新規追加する。
+その場合は P3-B 調査のサイズ・圧縮形式に従う(`76x42` RGBA32 が plane module の
+標準サイズ)。
+
 ---
 
 ## 典拠の優先順位(プロジェクトルール)
