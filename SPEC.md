@@ -33,7 +33,7 @@ HOI4 mod の標準ディレクトリ構造に従う:
 2026-06-28 時点で、Steam β版 `3374271790` の実コード確認により、
 アーキタイプ本体は `common/units/equipment/`、モジュール定義は
 `common/units/equipment/modules/` に置かれていることを確認済み。
-ただしアイコン `.dds` / `.gfx` / ローカライズ周りの細部は未調査。
+細部の命名規則と登録先は 3.7 / 3.8 / 3.9 を参照。
 
 ### 1.3 命名規則(一部確定)
 
@@ -150,7 +150,6 @@ HOI4 mod の標準ディレクトリ構造に従う:
 
 ### 3.6 継続して要調査の項目
 
-- Special Projects への新規プロジェクト追加手順
 - MD独自の改変点のうち、上記以外の周辺仕様
 
 ### 3.7 ローカライズキー命名規則(確定)
@@ -179,6 +178,18 @@ HOI4 mod の標準ディレクトリ構造に従う:
   **用途別に別 `.gfx` を追加**して分割管理する
 - 詳細なサイズ・ヘッダ情報・実例は `KNOWLEDGE.md`
   「アイコン .dds 仕様 + .gfx 登録」参照
+
+### 3.9 Special Projects 新規追加手順(確定)
+
+- `sp_arsenal_bird` 実装で、project 定義は `allowed` / `specialization` /
+  `icon` / `project_tags` / `available` / `project_output` / `ai_will_do` などを
+  組み合わせて作ることを確認した
+- 装備 variant 解放は `enable_equipments`、個別 module 解放は
+  `enable_equipment_modules` を使う
+- 本MODの超大型潜水艦は `specialization_naval` + `sp_tag_naval_vehicles`、
+  空中艦系 variant は `specialization_air` + 既存 air系 tag 再利用を基本にする
+- 新規 specialization は画像・facility model 連動まで増えるため、
+  まずは既存 specialization / generic reward の再利用を優先する
 
 ---
 

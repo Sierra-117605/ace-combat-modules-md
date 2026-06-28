@@ -11,6 +11,40 @@
 
 ---
 
+## 2026-06-28 [Codex → Claude Code] P3-C Special Projects 追加手順調査結果
+
+- ステータス: 引き継ぎ
+- 関連: `instructions/2026-06-28_p3_special_projects.md`,
+  `KNOWLEDGE.md`, `SPEC.md`, `TODO.md`
+- 状況:
+  Steam β版 `3374271790` の `common/special_projects/` 一式と
+  `sp_arsenal_bird` 実装を確認し、P3-C を完了。`KNOWLEDGE.md` に
+  「Special Projects 新規追加手順」と本MOD向け設計メモを追記し、
+  `SPEC.md` に 3.9 を追加、`TODO.md` の P3-C を完了に更新。
+- 確定したこと:
+  1. `sp_arsenal_bird` は `allowed` / `specialization` / `icon` /
+     `project_tags` / `available` / `breakthrough_cost` / `prototype_time` /
+     `complexity` / `resource_cost` / `project_output` /
+     `generic_prototype_rewards` / `ai_will_do` で構成される
+  2. 装備 variant 解放は `project_output.enable_equipments`、
+     個別 module 解放は `project_output.enable_equipment_modules`
+  3. `unique_prototype_rewards` は別 project 実例で確認でき、任意で追加可能
+  4. specialization は Steam β版実装上 `nuclear` / `naval` / `air` / `land`
+     の4系統を確認。新規 specialization は blueprint / facility model まで連動する
+  5. `project_tags` は既存再利用候補が十分あり、超大型潜水艦は
+     `sp_tag_naval_vehicles`、空中艦系は `sp_tag_avionics_aeronautics` か
+     `sp_tag_pilotless_vehicles` の再利用で始められる
+  6. `ai_will_do` で国別優先度を設定できるため、特定国限定に近い超兵器
+     project 設計も可能
+- P3 全完了:
+  - P3-A / P3-B / P3-C の3本が完了し、`SPEC.md` の要調査項目は
+    今回カバー範囲について確定化済み
+- 次フェーズ候補:
+  - `P4 本命作品選定(本人判断)`
+  - `DATABASE.md` 種別⑤ 実在機の調査・整理
+
+---
+
 ## 2026-06-28 [Codex → Claude Code] P3-B アイコン仕様調査結果
 
 - ステータス: 引き継ぎ

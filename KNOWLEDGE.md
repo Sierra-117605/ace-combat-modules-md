@@ -604,6 +604,165 @@ Special Project 側は `icon = GFX_sp_*` を明示指定し、`.gfx` で対応 s
   `interface/acm_airframes_medium.gfx`, `interface/special_projects/acm_projects.gfx`
   のように **用途別に分けて追加**するのが無難。
 
+#### Special Projects 新規追加手順(2026-06-28 Steam β版 `3374271790` で確認)
+
+調査対象:
+
+- `common/special_projects/projects/air_projects.txt`
+- `common/special_projects/projects/zz_netherlands_special_projects.txt`
+- `common/special_projects/project_tags/tags.txt`
+- `common/special_projects/prototype_rewards/generic_air_prototype_rewards.txt`
+- `common/special_projects/specialization/specializations.txt`
+- `common/special_projects/special_projects_documentation.md`
+
+##### 1. `sp_arsenal_bird` で確認できた project 定義の基本構造
+
+`sp_arsenal_bird` には、以下の項目がこの順で入っている:
+
+- `allowed`
+- `specialization`
+- `icon`
+- `project_tags`
+- `available`
+- `breakthrough_cost`
+- `prototype_time`
+- `complexity`
+- `resource_cost`
+- `project_output`
+- `generic_prototype_rewards`
+- `ai_will_do`
+
+参照:
+[air_projects.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/projects/air_projects.txt:651>)
+
+実例:
+
+- `allowed = { has_dlc = "By Blood Alone" }`
+- `specialization = specialization_air`
+- `icon = GFX_sp_aircraft_experimentation`
+- `project_tags = sp_tag_avionics_aeronautics`
+- `available` 内で前提 project 完了を要求
+- `project_output` 内で equipment と module を解放
+- `ai_will_do` 内で特定国に加点
+
+補足:
+
+- `available` は常時表示 project では省略される例がある
+  ([air_projects.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/projects/air_projects.txt:4>))
+- `unique_prototype_rewards` は `sp_arsenal_bird` には無いが、
+  `sp_dutch_super_bus_project` にはあるため、既存実装上は任意
+  ([zz_netherlands_special_projects.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/projects/zz_netherlands_special_projects.txt:52>))
+
+##### 2. Special Project から装備・モジュールを解放する仕組み
+
+- 装備 variant 解放は `project_output.enable_equipments = { <equipment_id> }`
+- 個別 module 解放は `project_output.enable_equipment_modules = { <module_id> }`
+
+`sp_arsenal_bird` 実例:
+
+- `enable_equipments = { mothership_equipment_1 }`
+- `enable_equipment_modules = { weap_droneswarm_fighter_1 ... fully_autonomous_computer_system_arsenal }`
+
+参照:
+[air_projects.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/projects/air_projects.txt:681>)
+
+補足:
+
+- エンジン標準の書式説明でも `enable_equipment_modules` と `enable_equipments`
+  が別項目として説明されている
+  ([special_projects_documentation.md](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/special_projects_documentation.md:218>),
+  [special_projects_documentation.md](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/special_projects_documentation.md:248>))
+- equipment だけを解放する短い実例は `sp_dutch_super_bus_project`
+  ([zz_netherlands_special_projects.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/projects/zz_netherlands_special_projects.txt:32>))
+
+##### 3. `prototype_rewards` / `specialization` の仕組み
+
+- `generic_prototype_rewards` は project 側から reward ID を列挙して使う
+  ([air_projects.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/projects/air_projects.txt:694>))
+- `generic_air_prototype_rewards.txt` では、各 reward が `token` と
+  `add_breakthrough_progress` などの効果を持つ
+  ([generic_air_prototype_rewards.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/prototype_rewards/generic_air_prototype_rewards.txt:5>),
+  [generic_air_prototype_rewards.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/prototype_rewards/generic_air_prototype_rewards.txt:140>))
+- `unique_prototype_rewards` を作る場合は project 内に別ブロックを追加する
+  ([zz_netherlands_special_projects.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/projects/zz_netherlands_special_projects.txt:52>))
+- Steam β版の実ファイルで確認できた specialization は
+  `specialization_nuclear`, `specialization_naval`, `specialization_air`,
+  `specialization_land` の4系統
+  ([specializations.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/specialization/specializations.txt:4>))
+- 新規 specialization のひな形はローカル文書にあるが、背景画像・blueprint・
+  facility model まで連動する
+  ([special_projects_documentation.md](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/special_projects_documentation.md:502>))
+
+本MOD向け判断材料:
+
+- 超兵器追加だけなら、まずは既存 `specialization_air` / `specialization_naval`
+  の再利用で始められる
+- `generic_prototype_rewards` も既存プールの再利用で開始可能
+- 新規 specialization は画像・施設モデルまで増えるため、現段階ではコストが重い
+
+##### 4. `project_tags` の使い方
+
+- 定義場所は `common/special_projects/project_tags/tags.txt`
+  ([tags.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/project_tags/tags.txt:4>))
+- 既存再利用候補:
+  - `sp_tag_naval_vehicles`
+  - `sp_tag_avionics_aeronautics`
+  - `sp_tag_aircraft_engines`
+  - `sp_tag_pilotless_vehicles`
+  ([tags.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/project_tags/tags.txt:13>))
+
+本MOD向け判断材料:
+
+- 超大型潜水艦は `sp_tag_naval_vehicles`
+- 空中艦・無人機寄り超兵器は `sp_tag_avionics_aeronautics` または
+  `sp_tag_pilotless_vehicles`
+- 既存タグで意味が通る間は新規タグ追加を避けた方が差分が小さい
+
+##### 5. DLC依存と AI 挙動
+
+- `sp_arsenal_bird` は `By Blood Alone` を必須にしている
+  ([air_projects.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/projects/air_projects.txt:652>))
+- 他 project では `By Blood Alone` と `No Step Back` の両方を要求する例もある
+  ([air_projects.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/projects/air_projects.txt:827>))
+- `ai_will_do` は `base` と `modifier` で重み付けでき、
+  `original_tag = USA` など特定国だけを強く優先させられる
+  ([air_projects.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/projects/air_projects.txt:711>))
+
+本MOD向け判断材料:
+
+- 「特定国だけが着手しやすい超兵器 project」は実装可能
+- ただし DLC ガードを入れるなら、`SPEC.md` 6.3 の前提どおり
+  BBA 依存を明示する必要がある
+
+##### 6. Special Project に紐付くアイコン・ローカライズ
+
+- `sp_arsenal_bird` の表示名は `sp_arsenal_bird` キーそのまま
+  ([replaced_from_special_projects_l_english.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/english/replace/replaced_from_special_projects_l_english.yml:253>),
+  [replaced_from_special_projects_l_japanese.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/japanese/replace/replaced_from_special_projects_l_japanese.yml:360>))
+- `sp_arsenal_bird_desc` は今回確認した置換ローカライズには無い
+- アイコン指定は project 側で `icon = GFX_sp_aircraft_experimentation`、
+  sprite 実体は `interface/special_projects/MD_project.gfx` にある
+  ([air_projects.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/projects/air_projects.txt:654>),
+  [MD_project.gfx](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/interface/special_projects/MD_project.gfx:280>))
+- reward 側は既定値として `name = reward_id`, `desc = reward_id_desc`,
+  `icon = GFX_reward_id` を使う説明がある
+  ([special_projects_documentation.md](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/special_projects_documentation.md:273>),
+  [special_projects_documentation.md](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/special_projects_documentation.md:284>),
+  [special_projects_documentation.md](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/special_projects_documentation.md:290>))
+
+##### 本MOD向け Special Project 追加設計メモ
+
+超大型潜水艦用は、`specialization_naval` と `sp_tag_naval_vehicles` を使う
+`sp_super_submarine` 系 project にまとめる構成が素直。`project_output` の
+`enable_equipments` で `super_submarine_equipment_*` variant を解放し、前提条件は
+`available` 内で既存の原子力・潜水艦寄り project 完了を要求する形に寄せられる。
+
+空中艦系は、`mothership_equipment_*` variant ごとに project を分ける方が
+管理しやすい。`specialization_air` を使い、`project_tags` は
+`sp_tag_avionics_aeronautics` を基本、無人機色が強いものだけ
+`sp_tag_pilotless_vehicles` を使う構成なら、`sp_arsenal_bird` と同じ流れで
+equipment と専用 module を同時解放できる。
+
 ---
 
 ## 典拠の優先順位(プロジェクトルール)
