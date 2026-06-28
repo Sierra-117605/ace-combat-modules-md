@@ -127,7 +127,7 @@
   - 既存スロットに新カテゴリを許可する方法
   - 性能修正値(modifier)の書式
   - 利用可能な statキー一覧
-- [~] [Codex] P3-A ローカライズキーの命名規則を確認
+- [x] [Codex] P3-A ローカライズキーの命名規則を確認
   - 指示書: `instructions/2026-06-28_p3_localization_keys.md`
 - [~] [Codex] P3-B アイコン .dds 仕様 + .gfx 登録方法を確認
   - 指示書: `instructions/2026-06-28_p3_icon_dds_gfx.md`

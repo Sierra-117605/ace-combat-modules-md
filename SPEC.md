@@ -152,9 +152,18 @@ HOI4 mod の標準ディレクトリ構造に従う:
 
 - アイコン `.dds` のサイズ・圧縮形式
 - `.gfx` ファイルへのアイコン登録方法
-- ローカライズキーの命名規則
 - Special Projects への新規プロジェクト追加手順
 - MD独自の改変点のうち、上記以外の周辺仕様
+
+### 3.7 ローカライズキー命名規則(確定)
+
+- モジュール本体・equipment・技術は、基本的に `ID` が表示名、
+  `ID_desc` が説明文
+- モジュールカテゴリ表示名は `EQ_MOD_CAT_<category>_TITLE`
+- Arsenal Bird 系のように、カテゴリ名よりスロット名
+  (`EQ_MOD_SLOT_<slot>_TITLE`) で見せている実装もある
+- Special Project 名は `project_id` そのままでローカライズされる
+- 詳細な実例と参照先は `KNOWLEDGE.md`「ローカライズキー命名規則」参照
 
 ---
 

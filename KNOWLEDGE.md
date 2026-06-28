@@ -319,6 +319,120 @@ P3「モジュール定義書式・stat一覧・modifier書式」の系統調査
 - 積載先アーキタイプの `allowed_module_categories` と `module_count_limit` の
   両方を見る必要がある。
 
+#### ローカライズキー命名規則(2026-06-28 Steam β版 `3374271790` で確認)
+
+調査対象:
+
+- `localisation/english/plane_designer_l_english.yml`
+- `localisation/japanese/plane_designer_l_japanese.yml`
+- `localisation/english/replace/replaced_from_special_projects_l_english.yml`
+- `localisation/japanese/replace/replaced_from_special_projects_l_japanese.yml`
+
+##### 1. モジュール本体の表示名・説明
+
+モジュール本体は **`<module_id>` が表示名、`<module_id>_desc` が説明文**。
+`_DESC` の大文字サフィックスではなく、小文字 `_desc` が実使用。
+
+確認例:
+
+- `weap_droneswarm_anti_ship_1`:
+  [MD_plane_modules.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/modules/MD_plane_modules.txt:8303>)
+  → [plane_designer_l_english.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/english/plane_designer_l_english.yml:797>)
+  / [plane_designer_l_english.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/english/plane_designer_l_english.yml:798>)
+  / [plane_designer_l_japanese.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/japanese/plane_designer_l_japanese.yml:730>)
+  / [plane_designer_l_japanese.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/japanese/plane_designer_l_japanese.yml:731>)
+- `fully_autonomous_computer_system_arsenal`:
+  [MD_plane_modules.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/modules/MD_plane_modules.txt:7645>)
+  → [plane_designer_l_english.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/english/plane_designer_l_english.yml:805>)
+  / [plane_designer_l_english.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/english/plane_designer_l_english.yml:806>)
+  / [plane_designer_l_japanese.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/japanese/plane_designer_l_japanese.yml:738>)
+  / [plane_designer_l_japanese.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/japanese/plane_designer_l_japanese.yml:739>)
+
+##### 2. 略称(`abbreviation`)は localisation キーではなく定義ファイル内の生文字列
+
+少なくとも Arsenal Bird 系モジュールでは、略称はモジュール定義内
+`abbreviation = "..."` で直接書かれており、対応する
+`<module_id>_abbreviation` ローカライズキーは上記 yml では確認できなかった。
+
+確認例:
+
+- `fully_autonomous_computer_system_arsenal = { abbreviation = "scsh" }`:
+  [MD_plane_modules.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/modules/MD_plane_modules.txt:7645>)
+- `weap_droneswarm_anti_ship_1 = { abbreviation = "wdas1" }`:
+  [MD_plane_modules.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/modules/MD_plane_modules.txt:8303>)
+
+##### 3. モジュールカテゴリ表示名は `EQ_MOD_CAT_<category>_TITLE`
+
+カテゴリの表示名は `EQ_MOD_CAT_<category>_TITLE` 形式。
+今回の調査範囲では `EQ_MOD_CAT_*_DESC` は確認できなかった。
+
+確認例:
+
+- `plane_droneswarm_weapon` → `EQ_MOD_CAT_plane_droneswarm_weapon_TITLE`:
+  [plane_designer_l_english.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/english/plane_designer_l_english.yml:88>)
+  / [plane_designer_l_japanese.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/japanese/plane_designer_l_japanese.yml:720>)
+- 汎用の近縁カテゴリ `plane_heavy_special_design`:
+  [plane_designer_l_english.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/english/plane_designer_l_english.yml:53>)
+  / [plane_designer_l_japanese.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/japanese/plane_designer_l_japanese.yml:708>)
+
+補足:
+
+- `fully_autonomous_computer_system_arsenal` のカテゴリは
+  `plane_heavy_special_design_arsenal`
+  ([MD_plane_modules.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/modules/MD_plane_modules.txt:7647>))
+  だが、この **完全一致の `EQ_MOD_CAT_plane_heavy_special_design_arsenal_TITLE` は
+  今回の調査範囲で確認できなかった**。
+- その代わり、Arsenal Bird 用スロット名は
+  `EQ_MOD_SLOT_fixed_primary_command_operations_TITLE`,
+  `EQ_MOD_SLOT_fixed_drone_doc_slot_1_TITLE` などで個別に定義されている:
+  [plane_designer_l_english.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/english/plane_designer_l_english.yml:27>)
+  / [plane_designer_l_english.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/english/plane_designer_l_english.yml:28>)
+  / [plane_designer_l_japanese.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/japanese/plane_designer_l_japanese.yml:714>)
+  / [plane_designer_l_japanese.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/japanese/plane_designer_l_japanese.yml:715>)
+
+##### 4. アーキタイプ・equipment の表示名
+
+アーキタイプ/variant も **`<equipment_id>` が表示名、`<equipment_id>_desc` が説明**。
+`_NAME` サフィックスは使われていない。
+
+確認例:
+
+- `mothership_equipment`:
+  [MD_plane_airframes.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/MD_plane_airframes.txt:6086>)
+  → [plane_designer_l_english.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/english/plane_designer_l_english.yml:542>)
+  / [plane_designer_l_english.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/english/plane_designer_l_english.yml:600>)
+  / [plane_designer_l_japanese.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/japanese/plane_designer_l_japanese.yml:722>)
+  / [plane_designer_l_japanese.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/japanese/plane_designer_l_japanese.yml:723>)
+- `mothership_equipment_1`:
+  [MD_plane_airframes.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/MD_plane_airframes.txt:6238>)
+  → [plane_designer_l_english.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/english/plane_designer_l_english.yml:543>)
+  / [plane_designer_l_japanese.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/japanese/plane_designer_l_japanese.yml:721>)
+
+##### 5. Special Project 関連
+
+Special Project 名は **`<project_id>` そのまま**でローカライズされている。
+今回の確認例 `sp_arsenal_bird` では説明文キーは確認できなかった。
+
+確認例:
+
+- `sp_arsenal_bird` 定義:
+  [air_projects.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/special_projects/projects/air_projects.txt:651>)
+- 英語ローカライズ:
+  [replaced_from_special_projects_l_english.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/english/replace/replaced_from_special_projects_l_english.yml:253>)
+- 日本語ローカライズ:
+  [replaced_from_special_projects_l_japanese.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/japanese/replace/replaced_from_special_projects_l_japanese.yml:360>)
+
+##### 6. 技術ツリー関連(参考)
+
+技術キーも `tech_id` / `tech_id_desc` の2本構成。
+
+確認例:
+
+- [plane_designer_l_english.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/english/plane_designer_l_english.yml:260>)
+  / [plane_designer_l_english.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/english/plane_designer_l_english.yml:261>)
+- [plane_designer_l_japanese.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/japanese/plane_designer_l_japanese.yml:759>)
+  / [plane_designer_l_japanese.yml](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/localisation/japanese/plane_designer_l_japanese.yml:760>)
+
 ---
 
 ## 典拠の優先順位(プロジェクトルール)
