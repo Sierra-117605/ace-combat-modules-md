@@ -118,6 +118,10 @@
 
 ## P3: SPEC精査(MDコード調査)
 
+- [~] [Codex] DBレビュー + モジュール定義書式精査 を依頼中
+  - 指示書: `instructions/2026-06-28_db_review_and_p3_modules_spec.md`
+  - Phase A: DATABASE.md 独立レビュー(自分で修正せずレビュー報告のみ)
+  - Phase B: モジュール定義書式・stat一覧・modifier書式 を MD実コードから抽出
 - [ ] [Claude Code/Codex] MDのモジュール定義書式を精査
   - モジュールカテゴリの定義方法
   - 既存スロットに新カテゴリを許可する方法
