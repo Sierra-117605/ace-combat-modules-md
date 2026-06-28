@@ -94,6 +94,231 @@ carrier, missile_submarine, attack_submarine, repair_ship, support_ship
 - `MD_sam_missile.txt`(地対空ミサイル、243行と比較的薄め)
 - `MD_nuclear_missiles.txt`(核ミサイル)
 
+### MDモジュール定義書式(2026-06-28 Steam β版 `3374271790` で確認)
+
+P3「モジュール定義書式・stat一覧・modifier書式」の系統調査結果。
+主参照:
+
+- `common/units/equipment/modules/MD_plane_modules.txt`
+- `common/units/equipment/modules/MD_ship_modules.txt`
+- `common/units/equipment/MD_plane_airframes.txt`
+- `common/units/equipment/MD_mtg_ships.txt`
+
+#### 1. モジュール定義で実際に確認できた主要フィールド
+
+航空機・艦船のモジュール定義で繰り返し確認できた基本フィールド:
+
+- `abbreviation`
+- `category`
+- `sfx`
+- `xp_cost`
+- `add_stats`
+- `build_cost_resources`
+
+用途に応じて使われる任意フィールド:
+
+- `add_equipment_type`
+- `allow_mission_type`
+- `multiply_stats`
+- `parent`
+- `can_convert_from`
+- `manpower`
+- `add_average_stats`
+- `dismantle_cost_ic`
+- `critical_parts`
+
+確認例:
+
+- 航空機エンジンの基本形:
+  [MD_plane_modules.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/modules/MD_plane_modules.txt:22>)
+- 上位tierでの `parent` と `can_convert_from`:
+  [MD_plane_modules.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/modules/MD_plane_modules.txt:54>)
+- アビオニクスでの `manpower = -1` と `module_category` 指定の変換:
+  [MD_plane_modules.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/modules/MD_plane_modules.txt:1346>)
+- 艦載レールガンでの `add_average_stats` / `dismantle_cost_ic` / `critical_parts`:
+  [MD_ship_modules.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/modules/MD_ship_modules.txt:4067>)
+
+#### 2. `add_stats` で実際に使われている stat キー
+
+航空機・艦船モジュール定義から機械抽出したキー:
+
+- `air_agility`
+- `air_attack`
+- `air_bombing`
+- `air_defence`
+- `air_ground_attack`
+- `air_superiority`
+- `anti_air_attack`
+- `armor_value`
+- `build_cost_ic`
+- `carrier_size`
+- `carrier_sub_detection`
+- `carrier_surface_detection`
+- `fuel_consumption`
+- `hg_armor_piercing`
+- `hg_attack`
+- `lg_attack`
+- `max_organisation`
+- `max_strength`
+- `maximum_speed`
+- `mines_planting`
+- `mines_sweeping`
+- `naval_range`
+- `naval_speed`
+- `naval_strike_attack`
+- `naval_strike_targetting`
+- `naval_torpedo_hit_chance_factor`
+- `night_penalty`
+- `reliability`
+- `sub_attack`
+- `sub_detection`
+- `sub_visibility`
+- `supply_consumption`
+- `surface_detection`
+- `surface_visibility`
+- `thrust`
+- `torpedo_attack`
+- `weight`
+
+補足:
+
+- `build_cost_ic` や `fuel_consumption` も `add_stats` 内で直接調整している。
+- コメント上は `weather_penalty` が見えるが「doesn't work」と注記されており、
+  実際の有効キーとしては扱わない方が安全:
+  [MD_plane_modules.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/modules/MD_plane_modules.txt:1288>)
+
+#### 3. `multiply_stats` で実際に使われている stat キー
+
+機械抽出したキー:
+
+- `air_agility`
+- `air_attack`
+- `air_bombing`
+- `air_defence`
+- `air_ground_attack`
+- `air_range`
+- `air_superiority`
+- `anti_air_attack`
+- `armor_value`
+- `build_cost_ic`
+- `fuel_consumption`
+- `hg_armor_piercing`
+- `hg_attack`
+- `lg_attack`
+- `max_strength`
+- `maximum_speed`
+- `naval_range`
+- `naval_speed`
+- `naval_strike_attack`
+- `naval_strike_targetting`
+- `naval_torpedo_enemy_critical_chance_factor`
+- `reliability`
+- `sub_attack`
+- `sub_detection`
+- `sub_visibility`
+- `surface_detection`
+- `surface_visibility`
+- `torpedo_attack`
+
+補足:
+
+- `multiply_stats` は割合補正で、航空機アビオニクスや艦載主砲系で多用される。
+- `add_stats` と完全一致ではない。たとえば `air_range` は `multiply_stats` 側で
+  観測された。
+
+#### 4. `build_cost_resources` で実際に使われている資源名
+
+機械抽出した資源キー:
+
+- `aluminium`
+- `chromium`
+- `composites`
+- `microchips`
+- `steel`
+- `tungsten`
+
+補足:
+
+- 少なくとも航空機・艦船モジュール定義では `rubber` は観測されなかった。
+- 一方でアーキタイプ本体側の `resources` ブロックでは `rubber` が使われる例がある:
+  [MD_plane_airframes.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/MD_plane_airframes.txt:6113>)
+
+#### 5. `module_count_limit` の書式と既存使用例
+
+書式は2系統確認:
+
+- カテゴリ制限:
+  `module_count_limit = { category = <module_category> count < N }`
+- 特定モジュール制限:
+  `module_count_limit = { module = <module_id> count < N }`
+
+航空機側の複数行記述例:
+[MD_plane_airframes.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/MD_plane_airframes.txt:175>)
+
+艦船側の1行記述例:
+[MD_mtg_ships.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/MD_mtg_ships.txt:235>)
+
+観測できた挙動:
+
+- `allowed_module_categories` で受け入れ可能にしても、`module_count_limit` で
+  実装上の上限を別途掛けている。
+- 艦船側はカテゴリ上限を1行で大量に並べる書き方が多い。
+
+#### 6. `upgrades` ブロックの仕組み
+
+`upgrades` はアーキタイプ/variant 側にぶら下がる列挙ブロックで、該当装備に
+適用できるアップグレード系列を指定している。
+
+航空機の例:
+
+- `plane_bba_radar_upgrade`
+- `plane_bba_engine_upgrade`
+- `plane_bba_bomb_upgrade`
+- `plane_bba_turret_upgrade`
+
+確認例:
+[MD_plane_airframes.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/MD_plane_airframes.txt:262>)
+
+艦船の例:
+
+- `ship_CM_upgrade`
+- `ship_ground_support`
+- `ship_VLS_upgrade`
+- `ship_gun_upgrade`
+- `ship_armor_upgrade`
+- `carrier_engine_upgrade`
+- `carrier_displacement_upgrade`
+- `ship_reliability_upgrade`
+- `sub_displacement`
+- `sub_sonar_upgrade`
+- `sub_stealth_upgrade`
+- `sub_engine_upgrade`
+- `sub_torpedo_upgrade`
+
+確認例:
+
+- 水上艦:
+  [MD_mtg_ships.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/MD_mtg_ships.txt:148>)
+- 潜水艦:
+  [MD_mtg_ships.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/MD_mtg_ships.txt:5430>)
+
+#### 7. 新カテゴリ受け入れの実装ポイント
+
+新カテゴリを積めるようにする場所はアーキタイプ側の `module_slots` 内
+`allowed_module_categories`。
+
+航空機例:
+[MD_plane_airframes.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/MD_plane_airframes.txt:164>)
+
+艦船例:
+[MD_mtg_ships.txt](</C:/Program Files (x86)/Steam/steamapps/workshop/content/394360/3374271790/common/units/equipment/MD_mtg_ships.txt:160>)
+
+補足:
+
+- 実装は「モジュール定義ファイルに新カテゴリのモジュールを書く」だけでは足りない。
+- 積載先アーキタイプの `allowed_module_categories` と `module_count_limit` の
+  両方を見る必要がある。
+
 ---
 
 ## 典拠の優先順位(プロジェクトルール)

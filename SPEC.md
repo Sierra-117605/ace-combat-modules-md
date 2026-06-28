@@ -18,7 +18,7 @@ PLAN.md(やりたいこと)を、実装可能な形に翻訳したもの。
 Millennium Dawn のサブMODとして実装する。
 MD本体を改変するのではなく、上書き/追加で動作させる。
 
-### 1.2 ファイル構成(暫定、要調査)
+### 1.2 ファイル構成(一部確定)
 
 HOI4 mod の標準ディレクトリ構造に従う:
 
@@ -30,14 +30,20 @@ HOI4 mod の標準ディレクトリ構造に従う:
 - `localisation/english/` — 英語ローカライゼーション
 - `localisation/japanese/` — 日本語ローカライゼーション(対応する場合)
 
-具体的なパスはMD既存ファイルの命名規則を Claude Code / Codex で
-精査してから確定する。
+2026-06-28 時点で、Steam β版 `3374271790` の実コード確認により、
+アーキタイプ本体は `common/units/equipment/`、モジュール定義は
+`common/units/equipment/modules/` に置かれていることを確認済み。
+ただしアイコン `.dds` / `.gfx` / ローカライズ周りの細部は未調査。
 
-### 1.3 命名規則(暫定、要決定)
+### 1.3 命名規則(一部確定)
 
 - モジュールID接頭辞: `acm_` を予定(ACM-MDの略)
 - 既存MDモジュールと衝突しないことを `grep` で確認する
 - 例: `acm_railgun_main_battery`, `acm_railgun_secondary`, `acm_sluav_bay`
+- Steam β版の既存実装では、モジュール本体は `abbreviation`, `category`,
+  `sfx`, `xp_cost`, `add_stats`, `build_cost_resources` を基本に定義され、
+  `parent`, `can_convert_from`, `allow_mission_type`, `multiply_stats` などの
+  任意フィールドを追加するパターンが確認済み
 
 ---
 
@@ -77,24 +83,78 @@ HOI4 mod の標準ディレクトリ構造に従う:
 
 ---
 
-## 3. モジュール定義の技術仕様(要調査)
+## 3. モジュール定義の技術仕様(一部確定)
 
-MDがどのようにモジュールを定義しているかを、Claude Code / Codex 側で
-精査してから確定する。要調査項目:
+2026-06-28 時点で、Steam β版 `3374271790` の `MD_plane_modules.txt`,
+`MD_ship_modules.txt`, `MD_plane_airframes.txt`, `MD_mtg_ships.txt` を精査し、
+以下を確定した。
 
-- モジュールカテゴリ(`category`)の定義方法
-- 既存スロットに新カテゴリを許可する方法
-  (`allowed_module_categories` への追加)
-- モジュールの性能修正値(modifier)の書式と利用可能な statキー一覧
-- 各アーキタイプのスロット構成と、どこに新カテゴリを差し込めるか
-- アイコン .dds のサイズ・圧縮形式
+### 3.1 モジュール定義の基本書式(確定)
+
+- 基本フィールド:
+  `abbreviation`, `category`, `sfx`, `xp_cost`, `add_stats`, `build_cost_resources`
+- 任意フィールド:
+  `add_equipment_type`, `allow_mission_type`, `multiply_stats`, `parent`,
+  `can_convert_from`, `manpower`, `add_average_stats`, `dismantle_cost_ic`,
+  `critical_parts`
+- 上位tierは `parent` で継承し、`can_convert_from` で改修元モジュールと
+  `convert_cost_ic` を指定するパターンが一般的
+
+### 3.2 新カテゴリを既存アーキタイプで受ける方法(確定)
+
+- アーキタイプ側の `module_slots` にある `allowed_module_categories` へ
+  対象カテゴリを追加する
+- 追加後も `module_count_limit` による上限設定を別途確認する必要がある
+- `module_count_limit` は次の2形式が確認済み:
+  - `module_count_limit = { category = <category> count < N }`
+  - `module_count_limit = { module = <module_id> count < N }`
+
+### 3.3 性能修正値の書式と利用可能キー(確定)
+
+- 定数加算は `add_stats`
+- 割合補正は `multiply_stats`
+- 2026-06-28 時点で実際に使用確認できた主なキー:
+  - 航空機系: `air_superiority`, `air_attack`, `air_agility`, `air_defence`,
+    `air_ground_attack`, `air_bombing`, `air_range`, `naval_strike_attack`,
+    `naval_strike_targetting`, `thrust`, `maximum_speed`, `weight`,
+    `night_penalty`, `reliability`, `fuel_consumption`
+  - 艦船系: `naval_speed`, `naval_range`, `surface_detection`,
+    `surface_visibility`, `sub_detection`, `sub_visibility`, `sub_attack`,
+    `anti_air_attack`, `lg_attack`, `hg_attack`, `hg_armor_piercing`,
+    `torpedo_attack`, `carrier_size`, `carrier_surface_detection`,
+    `carrier_sub_detection`, `mines_planting`, `mines_sweeping`,
+    `max_strength`, `max_organisation`, `armor_value`, `supply_consumption`
+
+### 3.4 `build_cost_resources` の有効資源名(確定)
+
+モジュール定義で実使用を確認した資源:
+
+- `aluminium`
+- `chromium`
+- `composites`
+- `microchips`
+- `steel`
+- `tungsten`
+
+### 3.5 `upgrades` ブロックの仕組み(確定)
+
+- `upgrades` はアーキタイプ/variant 側で利用可能な upgrade 系列を列挙する
+- 確認できた代表例:
+  - 航空機: `plane_bba_radar_upgrade`, `plane_bba_engine_upgrade`,
+    `plane_bba_bomb_upgrade`, `plane_bba_turret_upgrade`
+  - 艦船: `ship_CM_upgrade`, `ship_ground_support`, `ship_VLS_upgrade`,
+    `ship_gun_upgrade`, `ship_armor_upgrade`, `carrier_engine_upgrade`,
+    `carrier_displacement_upgrade`, `ship_reliability_upgrade`,
+    `sub_displacement`, `sub_sonar_upgrade`, `sub_stealth_upgrade`,
+    `sub_engine_upgrade`, `sub_torpedo_upgrade`
+
+### 3.6 継続して要調査の項目
+
+- アイコン `.dds` のサイズ・圧縮形式
 - `.gfx` ファイルへのアイコン登録方法
 - ローカライズキーの命名規則
 - Special Projects への新規プロジェクト追加手順
-- MD独自の改変点(バニラとの差分)
-
-これらは Claude Code/Codex に調査タスクとして渡し、結果を
-KNOWLEDGE.md に蓄積する。
+- MD独自の改変点のうち、上記以外の周辺仕様
 
 ---
 
@@ -168,11 +228,13 @@ DATABASE.md の判定結果を踏まえ、最小スコープで1〜2モジュー
 - 既知の主要サブMODとの干渉点は、実装後に KNOWLEDGE.md に
   記録していく
 
-### 6.3 HOI4本体DLCとの依存(要調査)
+### 6.3 HOI4本体DLCとの依存(一部確定)
 
 - MD自体が NSB / MtG / BBA / By Blood Alone 等のDLCに依存している
 - 本MODはMDの依存に追従するため、独自のDLC依存は持たない予定
 - Special Projects を使う場合は By Blood Alone が前提
+  (`sp_arsenal_bird` の `allowed = { has_dlc = "By Blood Alone" }` を
+  Steam β版 `air_projects.txt` で確認済み)
 
 ---
 

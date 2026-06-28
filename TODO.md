@@ -118,11 +118,11 @@
 
 ## P3: SPEC精査(MDコード調査)
 
-- [~] [Codex] DBレビュー + モジュール定義書式精査 を依頼中
+- [x] [Codex] DBレビュー + モジュール定義書式精査 を完了
   - 指示書: `instructions/2026-06-28_db_review_and_p3_modules_spec.md`
   - Phase A: DATABASE.md 独立レビュー(自分で修正せずレビュー報告のみ)
   - Phase B: モジュール定義書式・stat一覧・modifier書式 を MD実コードから抽出
-- [ ] [Claude Code/Codex] MDのモジュール定義書式を精査
+- [x] [Claude Code/Codex] MDのモジュール定義書式を精査
   - モジュールカテゴリの定義方法
   - 既存スロットに新カテゴリを許可する方法
   - 性能修正値(modifier)の書式
@@ -132,8 +132,8 @@
   - 登録先 `.gfx` ファイルパス
 - [ ] [Claude Code/Codex] Special Projects の新規追加手順を確認
 - [ ] [Claude Code/Codex] ローカライズキーの命名規則を確認
-- [ ] [Claude Code/Codex] 上記をすべて KNOWLEDGE.md に蓄積
-- [ ] [Claude Code/Codex] SPEC.md の「要調査」項目を「確定」に更新
+- [x] [Claude Code/Codex] 上記をすべて KNOWLEDGE.md に蓄積
+- [x] [Claude Code/Codex] SPEC.md の「要調査」項目を「確定」に更新
 
 ---
 
