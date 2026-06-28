@@ -69,6 +69,36 @@
 
 ---
 
+## 2026-06-28 [Claude Code → Codex] P5 試作第2弾 TLS 実装依頼
+
+- ステータス: Codex 着手待ち
+- 関連: `instructions/2026-06-28_p5_implementation_tls.md`(指示書)
+- 経緯:
+  v0.1.0 リリース直後、本人「Codexにはなんて投げるの?」を受けて
+  次の実装対象を **TLS(Tactical Laser System、2 tier)** に確定し、Codex 向け
+  指示書を作成。本MOD最初の複数tier モジュール実装(`parent` /
+  `can_convert_from` の実地検証も兼ねる)。
+- 実装範囲:
+  - `acm_tls_1`(TLS - Zoisite、基礎tier、ADFX-01 Morgan 由来、7G制限)
+  - `acm_tls_2`(TLS - Directional、上位tier、ADFX-02 Morgan / ADF-01 FALKEN 由来、`parent = acm_tls_1`)
+  - カテゴリ: `plane_fighter_weapons`(2026-06-28 本人指示でミサイル枠に統一済み)
+  - スロット: 通常戦闘機の `fixed_main_weapon_slot` / `fixed_auxiliary_weapon_slot_1/2`
+  - アイコン: `special_counter_4.dds` の texturefile 直接参照(PLSL と統一、本人指示)
+  - ファイル構成: 既存 `acm-md/` 内のファイルに **追記** のみ(新規ファイル無し)
+- Codex の作業範囲:
+  - acm_plane_modules.txt に2モジュール追記
+  - acm_plane_modules.gfx に2 sprite 追記
+  - 英日ロケール .yml に4行追記(2モジュール × 表示名+説明)
+  - commit + push + 指示書 done/ 移動 + TODO/HANDOFF 更新
+- 本人の動作確認:
+  acm-md/ 配下を HOI4 MOD フォルダに上書きコピー → 装備デザイナーで
+  主兵装/補助兵装スロットに TLS - Zoisite / TLS - Directional が
+  現れるか確認(上位tier が下位tierからの改修選択肢として出るかも要確認)
+- Claude Code 側の対応:
+  本指示書 push 後は待機。Codex の完了報告 or 判断要請を待つ。
+
+---
+
 ## 2026-06-28 [本人 → Claude Code] TLS/HPM/レールガン/子機ドローン群をミサイル枠に統一
 
 - ステータス: DB / SPEC に反映済み
