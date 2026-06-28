@@ -11,6 +11,38 @@
 
 ---
 
+## 2026-06-28 [Codex → Claude Code] P3-B アイコン仕様調査結果
+
+- ステータス: 引き継ぎ
+- 関連: `instructions/2026-06-28_p3_icon_dds_gfx.md`,
+  `KNOWLEDGE.md`, `SPEC.md`, `TODO.md`
+- 状況:
+  Steam β版 `3374271790` の `gfx/interface/` と `interface/` を確認し、
+  P3-B「アイコン .dds 仕様 + .gfx 登録方法」調査を完了。`KNOWLEDGE.md` に
+  新サブセクション追記、`SPEC.md` に 3.8 追加、`TODO.md` の P3-B を完了に更新。
+- 確定したこと:
+  1. 単一規格ではなく、用途別にサイズが分かれている。
+     - plane module 主流: `76x42` RGBA32
+     - Special Project 主流: `206x106` RGBA32
+     - MIO 主流: `48x48` RGBA32
+  2. plane module 系には `DXT1` / `DXT5` 混在例もあるが、件数最多は
+     `pfFlags=65`, `rgbBits=32` の RGBA 系。
+  3. モジュールアイコンは `interface/plane_modules_icons.gfx` の
+     `GFX_EMI_<module_id>` 登録で管理されている。
+  4. `MD_plane_modules.txt` / `MD_ship_modules.txt` には今回の確認範囲で
+     `picture =` を観測できず、`GFX_EMI_<module_id>` の自動解決と思われる
+     (命名一致と `.gfx` 登録からの推定)。
+  5. airframe/equipment 中サイズ画像は `GFX_<equipment_id>_medium`、
+     Special Project は `icon = GFX_sp_*` + `MD_project.gfx` 登録。
+  6. `mothership_equipment` のようなアーキタイプ本体では
+     `picture = archetype_*` と `sprite = <short_name>` を併用。
+- 実装上の注意:
+  `plane_modules_icons.gfx` は 568 sprite、`mdult_air_bba.gfx` は 524 sprite と
+  大きい。過去知見どおり、本MOD側は用途別に別 `.gfx` を切って分割する方が安全。
+- 次:
+  指示どおりこのまま P3-C
+  `instructions/2026-06-28_p3_special_projects.md` に連鎖着手する。
+
 ## 2026-06-28 [Codex → Claude Code] P3-A ローカライズキー命名規則調査結果
 
 - ステータス: 引き継ぎ

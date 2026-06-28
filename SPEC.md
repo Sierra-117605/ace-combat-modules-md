@@ -150,8 +150,6 @@ HOI4 mod の標準ディレクトリ構造に従う:
 
 ### 3.6 継続して要調査の項目
 
-- アイコン `.dds` のサイズ・圧縮形式
-- `.gfx` ファイルへのアイコン登録方法
 - Special Projects への新規プロジェクト追加手順
 - MD独自の改変点のうち、上記以外の周辺仕様
 
@@ -164,6 +162,23 @@ HOI4 mod の標準ディレクトリ構造に従う:
   (`EQ_MOD_SLOT_<slot>_TITLE`) で見せている実装もある
 - Special Project 名は `project_id` そのままでローカライズされる
 - 詳細な実例と参照先は `KNOWLEDGE.md`「ローカライズキー命名規則」参照
+
+### 3.8 アイコン .dds 仕様 + .gfx 登録(確定)
+
+- モジュール・Special Project・MIO では、アイコン規格が用途別に分かれている
+  (例: plane module 主流は `76x42`、Special Project 主流は `206x106`,
+  MIO 主流は `48x48`)
+- plane module 系は `interface/plane_modules_icons.gfx` の
+  `GFX_EMI_<module_id>`、airframe 中サイズ画像は `GFX_<equipment_id>_medium`
+  で登録されている
+- Special Project は `icon = GFX_sp_*` を project 定義側で明示し、
+  `interface/special_projects/MD_project.gfx` で sprite 登録する
+- アーキタイプ本体では `picture = archetype_*` と `sprite = <short_name>` の
+  2系統を併用している
+- 本MOD側は `plane_modules` / `airframes_medium` / `special_projects` など
+  **用途別に別 `.gfx` を追加**して分割管理する
+- 詳細なサイズ・ヘッダ情報・実例は `KNOWLEDGE.md`
+  「アイコン .dds 仕様 + .gfx 登録」参照
 
 ---
 
