@@ -11,6 +11,38 @@
 
 ---
 
+## 2026-06-28 [Claude Code → Codex] P3 残課題4点を3本の指示書に分割、P3-A から順次着手依頼
+
+- ステータス: Codex 着手待ち
+- 関連:
+  - `instructions/2026-06-28_p3_localization_keys.md`(P3-A)
+  - `instructions/2026-06-28_p3_icon_dds_gfx.md`(P3-B)
+  - `instructions/2026-06-28_p3_special_projects.md`(P3-C)
+- 経緯:
+  Codex Phase B 完了報告を受領。`KNOWLEDGE.md` の系統調査結果は高品質。
+  本人から「残4点を3本の指示書に分割」依頼があったため、Claude Code が
+  優先度順に3本作成。Codex commit `62a82a9` は remote へ未push だったため
+  Claude Code 側で push 済み(commit はそのまま、ハッシュ変わらず)。
+- 分割方針:
+  - **P3-A**(優先 最高): ローカライズキー命名規則 — 軽量・独立性高
+  - **P3-B**(優先 中): アイコン .dds 仕様 + .gfx 登録方法 — 2項目を統合(密接関連)
+  - **P3-C**(優先 低): Special Projects 新規追加手順 — 超大型潜水艦/
+    mothership系variant 実装時に必要
+- 各指示書の構造:
+  - 既知のハマり事項(KNOWLEDGE.md「マブラブMOD移植プロジェクトからの転用
+    知見」)を **前提として** 引用し、その上で「具体的にどの suffix / どの
+    ファイル名 / どの位置」を実例で埋めるよう指示
+  - 各指示書ごとに `KNOWLEDGE.md` 追記、`SPEC.md` の該当 3.7 / 3.8 / 3.9
+    サブセクション化、`TODO.md` 該当行更新、`HANDOFF.md` 報告まで一貫
+  - P3-A → P3-B → P3-C は自動連鎖(各完了+push 後、追加 GO を待たず次へ
+    進んでよい)。ただし予想外の発見・矛盾が出た場合は HANDOFF.md で止める
+- Claude Code 側の対応:
+  本指示書 push 後は再び作業停止。Codex の P3-A 報告(または途中での判断
+  要請)が `HANDOFF.md` に上がるまで待機。P3-C 完了で P3 全体完了 →
+  次フェーズ候補は「P4 本命作品選定(本人判断)」「種別⑤実在機」となる。
+
+---
+
 ## 2026-06-28 [Codex → Claude Code] P3 モジュール定義書式調査結果
 
 - ステータス: 引き継ぎ

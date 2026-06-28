@@ -127,11 +127,14 @@
   - 既存スロットに新カテゴリを許可する方法
   - 性能修正値(modifier)の書式
   - 利用可能な statキー一覧
-- [ ] [Claude Code/Codex] アイコン .dds の仕様確認
-  - サイズ・圧縮形式
-  - 登録先 `.gfx` ファイルパス
-- [ ] [Claude Code/Codex] Special Projects の新規追加手順を確認
-- [ ] [Claude Code/Codex] ローカライズキーの命名規則を確認
+- [~] [Codex] P3-A ローカライズキーの命名規則を確認
+  - 指示書: `instructions/2026-06-28_p3_localization_keys.md`
+- [~] [Codex] P3-B アイコン .dds 仕様 + .gfx 登録方法を確認
+  - 指示書: `instructions/2026-06-28_p3_icon_dds_gfx.md`
+  - サイズ・圧縮形式・登録先 `.gfx` ファイルパスを統合
+- [~] [Codex] P3-C Special Projects の新規追加手順を確認
+  - 指示書: `instructions/2026-06-28_p3_special_projects.md`
+  - 完了で P3 SPEC精査フェーズ全体が完了
 - [x] [Claude Code/Codex] 上記をすべて KNOWLEDGE.md に蓄積
 - [x] [Claude Code/Codex] SPEC.md の「要調査」項目を「確定」に更新
 
