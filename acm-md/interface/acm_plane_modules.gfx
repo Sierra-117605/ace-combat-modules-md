@@ -1,0 +1,6 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_EMI_acm_pulse_laser_1"
+		texturefile = "gfx/interface/equipments/modules/acm_plane_modules/GFX_EMI_acm_pulse_laser_1.dds"
+	}
+}

@@ -1,0 +1,28 @@
+### ACM-MD prototype aircraft modules
+
+equipment_modules = {
+	limit = {
+		has_dlc = "By Blood Alone"
+	}
+
+	acm_pulse_laser_1 = {
+		abbreviation = "plsl"
+		category = plane_multipurpose_gun
+		sfx = sfx_ui_sd_modules_turret
+
+		add_stats = {
+			air_attack = 5
+			air_agility = -2
+			build_cost_ic = 25
+			reliability = -0.05
+			night_penalty = 0.05
+		}
+
+		build_cost_resources = {
+			chromium = 1
+			microchips = 1
+		}
+
+		xp_cost = 15
+	}
+}
