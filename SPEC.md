@@ -236,7 +236,7 @@ DATABASE.mdに既に作成済みのAC3関連エントリ(超兵器6件)は削除
 DATABASE.md の超兵器・架空艦セクション完成後に、
 素材の豊富さとMD既存実装との接続性から本命作品を選定する。
 
-### 4.3 第一段階で実装する兵器(未決定)
+### 4.3 第一段階で実装する兵器(2026-06-28 一部確定)
 
 DATABASE.md の判定結果を踏まえ、最小スコープで1〜2モジュールから着手。
 最初の実装対象は以下の条件を満たすものを優先する:
@@ -245,6 +245,42 @@ DATABASE.md の判定結果を踏まえ、最小スコープで1〜2モジュー
 - MD既存実装と機能が被らない
 - アイコンが既存流用または最小限の新規作成で済む
 - 効果が分かりやすく、動作確認しやすい
+
+#### 通常戦闘機(`small_plane_airframe` 系列)へのモジュール受入可否表
+
+`MD_plane_airframes.txt:53-174` の `small_plane_airframe` スロット構成を
+2026-06-28 に直接確認した結果、以下のとおり:
+
+| 種別④モジュール | カテゴリ | 受入スロット | 実装容易性 |
+|------------------|----------|--------------|------------|
+| PLSL | plane_multipurpose_gun | `fixed_gun_slot` | 完了(v0.1.0) |
+| COFFIN コックピット | plane_avionics | `avionics_type_slot` | モジュール追加のみ |
+| 機載AI支援 | plane_avionics | 同上 | モジュール追加のみ |
+| ベルカ系ECM | plane_countermeasures | `special_slot_type_1` | モジュール追加のみ |
+| 攻撃型ECM "Cocytus" | plane_countermeasures | 同上 | モジュール追加のみ |
+| MPBM | plane_fighter_weapons | `fixed_main_weapon_slot` / `auxiliary` | モジュール追加のみ |
+| 多目的全方位ミサイル | plane_fighter_weapons | 同上 | モジュール追加のみ |
+| LSWM | plane_fighter_weapons または plane_heavy_nav_weapons | 同上 | モジュール追加のみ |
+| UAVネットワーク制御 | plane_drone_systems | `fixed_main_weapon_slot` | モジュール追加のみ |
+| **TLS** | plane_heavy_special_design_arsenal | 通常戦闘機に該当スロット無し | **要 Special Project 経由スロット解放** |
+| **HPM** | 同上 | 同上 | **要 Special Project 経由スロット解放** |
+| **機載レールガン** | 同上 | 同上 | **要 Special Project 経由スロット解放** |
+| **子機搭載ドローン群** | plane_droneswarm_weapon | 同上 | **要 Special Project 経由スロット解放** |
+
+#### 実装の順序方針(2026-06-28 確定)
+
+- **第1群「モジュール追加のみで通常戦闘機に乗るもの」** を優先実装。
+  PLSL(完了)+ 8件の合計9件は本MOD単体で完結し、MD アーキタイプを
+  上書きしない安全な実装になる
+- **第2群「Special Project 経由でスロット解放が必要なもの」**
+  (TLS / HPM / 機載レールガン / 子機搭載ドローン群)は、`sp_arsenal_bird`
+  パターンに倣う Special Project を追加して、専用スロットを解放する設計に
+  する。MD descriptor.mod が `common/units/equipment` を replace_path 宣言
+  しているため、アーキタイプ直接上書きは衝突リスクが高く、Special Project 経由が
+  より安全
+- **第3群「艦載モジュール5件」**(SRC-03a超大型レールキャノン / 補助レールガン /
+  バースト弾頭ミサイル / 潜水艦用艦上滑走路 / SLUAV発射ベイ)は、新規
+  「超大型潜水艦」アーキタイプ + Special Project とセットで実装する
 
 ---
 
