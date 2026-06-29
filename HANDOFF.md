@@ -1,3 +1,37 @@
+## 2026-06-28 [本人 → Claude Code] 「空軍版空母メカ」は別MOD検証→別セッションで進行
+
+- ステータス: ペンディング(別セッション + 別MOD で検証予定)
+- 関連: `SPEC.md` 2.2.5「将来検討: 空軍版空母メカ」
+- 経緯:
+  本人「アーセナルバード/アイガイオン等が航空機に航空機を空母のように積み込んで
+  運用しているのを MD で再現したい」「HOI4 そのものに存在しない新たな概念として
+  追加したい」「海軍の空母メカを空軍でもやりたい」との大きな発案。
+- Claude Code 調査結果(2026-06-28):
+  - HOI4空母メカは `type = carrier` archetype + `carrier_size` stat in
+    `module_flight_decks_category` + `carrier_capable = yes` 航空機 の3点セット
+  - 連携ロジックはエンジン C++ にハードコードされており、modder の範囲を
+    超える可能性が高い
+  - 航空機 archetype に `carrier_size` を持たせてエンジンが認識するかは
+    実機テスト無しには断定できない
+- 本人指示の進め方:
+  「できるかどうかを検証するための別MODを作成し、可能であればそれを
+  このmodに反映する形で。なのでこれに関しては会話のセッションを
+  切り分けて進めたい」
+- 進行計画:
+  1. **本セッションでは本件はペンディング**、SPEC.md / HANDOFF.md / KNOWLEDGE.md に
+     技術調査結果を恒久記録(本コミット)
+  2. 別セッションで `acm-md-experiment-air-carrier`(仮)等の試作 MOD を別リポジトリで作成し、
+     `super_mothership_plane archetype + carrier_size stat + carrier_capable 子機`
+     構成を HOI4 起動して挙動確認
+  3. エンジン認識 → 本MODに正式反映(設計柱化)
+     エンジン無視 → Y案(scripted_effect)か Z案(現状維持)に倒す
+- 本セッションでの本MODの進行:
+  本件と独立に、種別④モジュール実装(TLS 動作確認、ECM/MPBM/COFFIN等の追加実装)を進めて良い。
+  Z案(MD抽象表現)= 「子機搭載ドローン群」モジュール(`acm_plane_special_weapons` カテゴリ)は
+  既に実装済みで、検証結果に関わらず本MODの基盤として有効。
+
+---
+
 ## 2026-06-28 [Codex → Claude Code / 本人] P5 TLS 表示確認と特殊兵装枠への設計変更
 
 - ステータス: 引き継ぎ

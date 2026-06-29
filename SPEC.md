@@ -69,6 +69,47 @@ HOI4 mod の標準ディレクトリ構造に従う:
 1点物の超兵器のみ、MDの既存パターン(`sp_arsenal_bird` + `mothership_equipment`)に倣って実装。
 ただしアイコン制約のため、追加するか否かは作品選定後に判断する。
 
+### 2.2.5 将来検討: 「空軍版空母メカ」(別MOD技術検証中)
+
+本人発案(2026-06-28):
+
+> アーセナルバード/アイガイオン/超大型潜水艦のような「母機が子機を実体運用する」
+> 挙動を HOI4 で再現したい。海軍の空母メカ(`carrier_size` stat + `module_flight_decks_category` +
+> `carrier_capable = yes` 航空機)を **空軍にも適用したい**。HOI4 そのものに
+> 存在しない新たな概念として追加する形。
+
+#### 技術調査結果(2026-06-28)
+
+- HOI4 の空母メカは **エンジン C++ レベルでハードコード**:
+  - 艦船側: `type = carrier` archetype + `module_flight_decks_category` のスロット +
+    `carrier_size = N` stat
+  - 航空機側: `carrier_capable = yes` フラグ(`cv_*` 系 archetype のみ)
+- これらの連携は艦船と航空機の archetype 区分に依存しており、**航空機 archetype に
+  `carrier_size` を持たせてエンジンが認識するかは不明**(modder の範囲を超える可能性が高い)
+
+#### 検証方針(2026-06-28 本人指示で確定)
+
+- **別MOD(test rig)で技術検証する**。本MODとは別のリポジトリで、最小限の
+  「super_mothership_plane archetype + carrier_size stat + carrier_capable 子機」
+  構成を用意して HOI4 を起動 → エンジンが認識するか確認
+- **検証作業は別セッション**で進める(Claude Code / Codex の別チャットセッション)。
+  結果が出た時点で本MOD への反映可否を判断
+- 検証 MOD の暫定名: `acm-md-experiment-air-carrier`(仮)
+
+#### 判定基準
+
+| 結果 | 本MOD への反映 |
+|------|----------------|
+| エンジンが認識 → 子機が実体運用される | **本MODの設計柱として正式採用**。アーセナルバード variant の超大型空中艦系を「空軍版空母」として実装。AC設定的に最も自然な再現 |
+| エンジンが無視 → stat hack 失敗 | Y案(scripted_effect 擬似補充)に倒すか、Z案(MD 抽象表現の現状維持)で完結 |
+
+#### 暫定スコープ
+
+本件が解決するまで、本MODは **Z案(MD 抽象表現)= 現状の「子機搭載ドローン群」モジュール(母機ステータス強化)** で進める。
+種別④の他モジュール実装(TLS / HPM 等)は本件と独立に進む。
+
+---
+
 ### 2.3 解放方法(確定)
 
 入手条件は「研究」で解放する。

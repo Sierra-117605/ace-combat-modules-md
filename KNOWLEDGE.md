@@ -763,6 +763,60 @@ Special Project 側は `icon = GFX_sp_*` を明示指定し、`.gfx` で対応 s
 `sp_tag_pilotless_vehicles` を使う構成なら、`sp_arsenal_bird` と同じ流れで
 equipment と専用 module を同時解放できる。
 
+#### HOI4「空母メカ」内部構造と空軍流用の制約(2026-06-28 調査)
+
+本人発案「アーセナルバードのような母機-子機関係を HOI4 で実体運用したい」を受けた
+HOI4 空母メカの内部構造調査結果。**ここで判明した知見は別MOD技術検証
+(SPEC.md 2.2.5)の前提資料**として使う。
+
+##### HOI4 空母メカの3点セット
+
+| 部品 | 役割 | 既存実装場所 |
+|------|------|--------------|
+| `type = carrier` archetype | 艦種定義 | `MD_naval_units.txt` |
+| `carrier_size = N` stat | 艦船(空母)が運用できる艦載機数 | `module_flight_decks_category` モジュール内、`MD_ship_modules.txt:1641` 他、コメント `#carrier_size - number of planes that can operate from the ship` |
+| `carrier_capable = yes` フラグ | 「この航空機は艦載機として運用される」マーカー | 航空機 archetype 側、`cv_small_plane_airframe` 等(`MD_plane_airframes.txt:1129` 他) |
+
+##### 航空機 archetype に流用する場合の不確定要素
+
+- エンジン側の艦載機運用ロジックは **C++ ハードコードの可能性が高い**。
+  特に「空母から発艦して空戦に参加し、空母に戻る」「空母が沈むと艦載機も損耗」等の
+  挙動はゲームメカの根幹で、modder が拡張できる範囲を超える
+- 航空機 equipment に `carrier_size` stat を持たせても **エンジンが認識する保証は無い**。
+  認識しても「stat が記録されるだけで挙動に反映されない」可能性が現実的
+- ただし、これは **MOD 範囲で実機テストすれば判定できる**。30分〜1時間規模の
+  試作 MOD で白黒つく見込み
+
+##### 取り得る代替案(エンジンが認識しない場合)
+
+- Y案: `scripted_effect` + `on_action = monthly_pulse` 等で「母機保有国に
+  子機を自動生産・配備」。実体ユニットは生まれるが、母機-子機の戦闘連携は
+  HOI4 メカ的に発生しない
+- Z案: 現状の「母機ステータス強化モジュール」(MD `plane_droneswarm_weapon`
+  パターン)で抽象表現。本MODの「子機搭載ドローン群」モジュールは既にこれ
+
+##### 検証 MOD のテンプレ案(別セッション用メモ)
+
+別MOD `acm-md-experiment-air-carrier` の最小構成:
+
+```
+- common/units/equipment/
+    - test_super_mothership_plane.txt
+      - archetype 1個 + variant 1個、carrier_size = 3 を持たせる
+    - test_drone_plane.txt
+      - archetype 1個 + variant 1個、carrier_capable = yes
+- common/units/equipment/modules/
+    - test_plane_carrier_module.txt
+      - module_flight_decks_category 相当を航空機側で機能するか確認
+- descriptor.mod / acm-md-experiment-air-carrier.mod
+```
+
+HOI4 起動 → 装備デザイナーで test_super_mothership_plane を作成 →
+test_drone_plane を装備可能か、生産時に紐づくか、空戦時に子機が出現するかを
+ログと装備画面で確認。
+
+---
+
 #### MD既存のAC機体候補アイコン素材(2026-06-28 本人発見)
 
 本人から「諦めていた機体アイコンについてはそもそもMDが一部追加していた、
