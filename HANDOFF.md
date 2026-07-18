@@ -1,6 +1,70 @@
-## 2026-06-28 [本人 → Claude Code] 「空軍版空母メカ」は別MOD検証→別セッションで進行
+## 2026-07-18 [実験セッション → 本MOD] 空軍版空母メカ検証結果: B判定(実現不可)
 
-- ステータス: ペンディング(別セッション + 別MOD で検証予定)
+- ステータス: 検証完了 / 本MOD 側で方針判断待ち
+- 関連: `SPEC.md` 2.2.5「将来検討: 空軍版空母メカ」、下記 2026-06-28 エントリ、
+  試作 MOD `C:/dev/acm-md-experiment-air-carrier`(検証用、本MOD 領域外)
+- 検証環境: HOI4 1.19.* + MD β版 (ugc_3374271790) + 試作 MOD 単体
+  実機テスト実施(装備デザイナー未到達だが、equipment DB への登録は確認済み)
+
+### 検証で判明した事実(根拠付き)
+
+1. **`carrier_size` は plane equipment に付与しても stat として登録される**
+   - `common/script_enums.txt:90` の `script_enum_equipment_stat` に列挙されているため、syntactically 有効
+   - 試作 MOD の実機 load 確認: HOI4 setup.log で
+     `Equipment(s) loaded 'common/units/equipment/test_super_mothership_plane.txt' #2` 出力
+   - error.log でも `test_super_mothership_plane_1 is an equipment type or equipment category` の
+     warning レベルのみ、致命エラー無し
+2. **しかし `type = carrier` は naval 専用の hardcoded enum**
+   - vanilla `common/units/equipment/_documentation.md` の記述:
+     - Naval types: `capital_ship|submarine|screen_ship|carrier|convoy|naval_transport`
+     - Air types: `air_transport|fighter|cas|interceptor|tactical_bomber|strategic_bomber|naval_bomber|missile|suicide`
+   - 航空機 archetype に `type = carrier` を付けることは想定されていない(enum 違反)
+3. **`carrier_capable` は UI/GUI 参照のフラグ**
+   - `interface/airwingdetails.gui`, `airwingreorganization.gui` で `carrier_capable_icon` として艦載機アイコン表示条件に使われる
+   - しかし plane 側にこの flag があっても、それを「他の plane に載る」機構は無い。
+     C++ ハードコードで艦艇上の carrier_size と紐づくロジックしか存在しない
+4. **「plane が plane を積む」という C++ code path は存在しない**
+   - 空母メカは「ship (type=carrier) + carrier_size stat + plane (carrier_capable) 3点セット」で
+     ship に airwing を stationing する仕組みで実装されており、ship→plane の一方向
+   - plane→plane の親子関係を扱う data structure が HOI4 に存在しない
+
+### 判定
+
+**SPEC.md 2.2.5 判定基準表の 2行目に該当:**
+> エンジンが無視 → stat hack 失敗 → **Y案(scripted_effect)か Z案(MD抽象表現の現状維持)で完結**
+
+### 本MOD への反映提案(次セッションで判断・実行)
+
+- [ ] `SPEC.md` 2.2.5 を「将来検討」から「**検証済み: B判定 / Z案採用**」または
+      「Y案追加検討」に書き換え。判定基準表の下段(Y/Z)を正式方針として明記
+- [ ] `KNOWLEDGE.md` の「HOI4 空母メカ内部構造と空軍流用の制約(2026-06-28 調査)」節に
+      検証結果セクションを追記:
+  - carrier_size stat は script_enum に登録されており plane に付けても load 通る事実
+  - しかし C++ ロジックが plane を carrier とは見做さない事実
+  - _documentation.md の type enum 制約
+- [ ] Y案 or Z案 の選択:
+  - **Z案**(推奨): 現状の「子機搭載ドローン群」モジュール (`acm_plane_special_weapons` 系) で
+    アーセナルバード/アイガイオンの母機能力を抽象表現(既に実装済み)
+  - **Y案**: `scripted_effect` + `on_action` で母機保有国に子機を自動配備。
+    実体ユニット生成はできるが戦闘連携は HOI4 メカ的に発生しない = 見た目のみ
+- [ ] 試作 MOD `C:/dev/acm-md-experiment-air-carrier`(本MOD 領域外)は
+      検証記録として保持 or 削除の判断
+
+### 参考:検証途中の副次発見(本件と独立、KNOWLEDGE 反映価値あり)
+
+- HOI4 1.19 の launcher が `.mod` の `path=` を絶対パスで書き換える挙動
+  → ローカル MOD が読まれなくなる。相対パス `path="mod/<name>"` + readonly 属性で回避可能
+- 本MOD `acm-md.mod` も同じく絶対パス書式のため、setup.log を見ると
+  `acm-md/common/units/equipment/modules/acm_plane_modules.txt` の Module(s) loaded 行が
+  無い可能性がある(要確認)。本MOD が実際に load されているかは要検証
+- `air_attack` は plane equipment でも有効な stat(vanilla `x_plane_airframes.txt` の
+  `cv_fighter_equipment_0` 等で使用)。当初の私の懸念(AA専用と誤解)は誤り
+
+---
+
+## 2026-06-28 [本人 → Claude Code] 「空軍版空母メカ」は別MOD検証→別セッションで進行(解決済み)
+
+- ステータス: 検証完了(上記 2026-07-18 エントリ参照)、B判定確定
 - 関連: `SPEC.md` 2.2.5「将来検討: 空軍版空母メカ」
 - 経緯:
   本人「アーセナルバード/アイガイオン等が航空機に航空機を空母のように積み込んで

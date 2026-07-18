@@ -69,7 +69,7 @@ HOI4 mod の標準ディレクトリ構造に従う:
 1点物の超兵器のみ、MDの既存パターン(`sp_arsenal_bird` + `mothership_equipment`)に倣って実装。
 ただしアイコン制約のため、追加するか否かは作品選定後に判断する。
 
-### 2.2.5 将来検討: 「空軍版空母メカ」(別MOD技術検証中)
+### 2.2.5 「空軍版空母メカ」検証結果: 実現不可 → Z案採用(2026-07-18 検証完了)
 
 本人発案(2026-06-28):
 
@@ -78,35 +78,55 @@ HOI4 mod の標準ディレクトリ構造に従う:
 > `carrier_capable = yes` 航空機)を **空軍にも適用したい**。HOI4 そのものに
 > 存在しない新たな概念として追加する形。
 
-#### 技術調査結果(2026-06-28)
+#### 検証結果(2026-07-18、別MOD 実機検証で確定)
 
-- HOI4 の空母メカは **エンジン C++ レベルでハードコード**:
-  - 艦船側: `type = carrier` archetype + `module_flight_decks_category` のスロット +
-    `carrier_size = N` stat
-  - 航空機側: `carrier_capable = yes` フラグ(`cv_*` 系 archetype のみ)
-- これらの連携は艦船と航空機の archetype 区分に依存しており、**航空機 archetype に
-  `carrier_size` を持たせてエンジンが認識するかは不明**(modder の範囲を超える可能性が高い)
+**判定: 不可**。試作 MOD `acm-md-experiment-air-carrier` で HOI4 実機検証した結果、
+「plane が plane を搭載する」という C++ code path が存在しないことが確定した。
 
-#### 検証方針(2026-06-28 本人指示で確定)
+判明した事実(検証根拠):
 
-- **別MOD(test rig)で技術検証する**。本MODとは別のリポジトリで、最小限の
-  「super_mothership_plane archetype + carrier_size stat + carrier_capable 子機」
-  構成を用意して HOI4 を起動 → エンジンが認識するか確認
-- **検証作業は別セッション**で進める(Claude Code / Codex の別チャットセッション)。
-  結果が出た時点で本MOD への反映可否を判断
-- 検証 MOD の暫定名: `acm-md-experiment-air-carrier`(仮)
+1. **`carrier_size` は plane equipment に付与しても load は通る**
+   - `common/script_enums.txt:90` の `script_enum_equipment_stat` に列挙されており
+     syntactically 有効な stat
+   - 試作 MOD の実機テスト: `Equipment(s) loaded 'common/units/equipment/test_super_mothership_plane.txt' #2`
+     が HOI4 setup.log に出力、error.log は warning レベル(script_enum_equipment_bonus_type
+     未登録の documentation warning)のみ
+2. **しかし `type = carrier` は naval 専用の hardcoded enum**
+   - vanilla `common/units/equipment/_documentation.md` 明記:
+     - Naval types: `capital_ship|submarine|screen_ship|carrier|convoy|naval_transport`
+     - Air types: `air_transport|fighter|cas|interceptor|tactical_bomber|strategic_bomber|naval_bomber|missile|suicide`
+   - 航空機 archetype に `type = carrier` を付けることは想定外(enum 違反)
+3. **`carrier_capable` は UI 上の艦載機マーカー**
+   - `interface/airwingdetails.gui`, `airwingreorganization.gui` で `carrier_capable_icon` として
+     艦載機アイコン表示条件に使用
+   - plane 側に flag 付与しても「他 plane に載る」機構は存在せず、
+     C++ ハードコードで艦艇 (`type = carrier`) 上の carrier_size と紐づく airwing stationing
+     ロジックしか無い(ship→plane の一方向)
+4. **plane→plane 親子関係の data structure 自体が HOI4 に存在しない**
 
-#### 判定基準
+詳細は `HANDOFF.md` 2026-07-18 エントリと `KNOWLEDGE.md` 該当節を参照。
 
-| 結果 | 本MOD への反映 |
-|------|----------------|
-| エンジンが認識 → 子機が実体運用される | **本MODの設計柱として正式採用**。アーセナルバード variant の超大型空中艦系を「空軍版空母」として実装。AC設定的に最も自然な再現 |
-| エンジンが無視 → stat hack 失敗 | Y案(scripted_effect 擬似補充)に倒すか、Z案(MD 抽象表現の現状維持)で完結 |
+#### 方針決定: Z案採用(現状維持)
 
-#### 暫定スコープ
+本MODは以下で進める:
 
-本件が解決するまで、本MODは **Z案(MD 抽象表現)= 現状の「子機搭載ドローン群」モジュール(母機ステータス強化)** で進める。
-種別④の他モジュール実装(TLS / HPM 等)は本件と独立に進む。
+- **Z案(採用)**: 現状の「子機搭載ドローン群」モジュール
+  (`acm_plane_special_weapons` カテゴリの `plane_droneswarm_weapon` 系)による
+  **母機ステータス強化での抽象表現**を継続。既に実装済みで、SPEC.md 3.x の
+  種別④モジュール実装体系に組み込まれている
+- **Y案(検討停止)**: `scripted_effect` + `on_action` による子機自動配備は、
+  実体ユニットは生成できても戦闘連携が発生しない(C++ 連携無し)ため、
+  「母機-子機実運用」の再現には至らない。実装コストに見合わない
+- **超大型空中艦系の再現方針**: アーセナルバード等は「単体で強力な航空機装備」
+  + Z案「子機搭載ドローン群」モジュール装着による抽象化で表現。個別実装は
+  種別②架空機の追加検討に委ねる(現状 SPEC.md 4.x で保留)
+
+#### 経緯
+
+- 2026-06-28: 本人発案、Claude Code 事前調査で「エンジンハードコードの可能性が高い」
+  との仮判定 → 別 MOD 実機検証に委ねる方針決定
+- 2026-07-18: 別セッションで試作 MOD `acm-md-experiment-air-carrier` を作成、
+  HOI4 実機テスト実施。上記事実を確認し B判定(不可)確定
 
 ---
 
