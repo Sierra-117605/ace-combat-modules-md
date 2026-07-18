@@ -1,3 +1,49 @@
+## 2026-07-18 [Claude Code] 未定義カテゴリ問題判明、TLS救済のためカテゴリを既存 plane_fighter_weapons に戻す
+
+- ステータス: 対策実施済み / 本人 HOI4 再起動での再確認待ち
+- 関連: `acm-md/common/units/equipment/modules/acm_plane_modules.txt`,
+  削除: `acm-md/common/units/equipment/acm_plane_airframes.txt`
+- 判明した事実(2026-07-18 setup.log 精査):
+  - 本MOD `acm_plane_modules.txt` の Module(s) loaded 行が **#1** で表示
+    (隣接する MD_ship_modules #303, MD_tank_modules #306 と対比)
+  - つまり **PLSL + TLS_1 + TLS_2 の3個中、PLSL 1個しか登録されず、
+    TLS 2件は無音でドロップ**されていた
+  - 原因: 独自カテゴリ `acm_plane_special_weapons` が HOI4 に未定義で、
+    HOI4 が warning なしに無視していた
+  - 加えて `acm_plane_airframes.txt`(アーキタイプ拡張)は MD descriptor.mod の
+    `replace_path = "common/units/equipment"` 宣言により消滅していた
+    (setup.log にロード行なし)
+  - 本人「PLSL も出ていない」問題は別要因の可能性(本人が装備デザイナーで
+    fixed_gun_slot を持たない中型/大型 archetype を見ていた可能性大)
+- 対策実施(Claude Code):
+  1. `acm_tls_1` / `acm_tls_2` の category を `acm_plane_special_weapons` →
+     `plane_fighter_weapons` に戻す(2026-06-28 の変更を巻き戻し)
+  2. `acm_plane_airframes.txt` を削除(MD replace_path で消滅するので無意味)
+  3. ローカライズから `EQ_MOD_CAT_acm_plane_special_weapons_TITLE` を削除
+  4. HOI4 MOD フォルダにも即時反映(cp)
+- 副次判明した「独自カテゴリの実現困難性」:
+  - 独自モジュールカテゴリを HOI4 に登録するには、そのカテゴリを
+    `allowed_module_categories` で受け入れる archetype が必要
+  - MD が `common/units/equipment` を replace_path しているため、本MOD側の
+    `acm_plane_airframes.txt` は無視される
+  - したがって独自カテゴリを本MODで機能させるには **MD側 airframes を
+    丸ごとコピー+上書き** が必要 → MD更新追従リスク大で本MOD方針外
+  - 結論: **AC独自兵装は既存カテゴリ `plane_fighter_weapons`(通常AAM群)と
+    同じ選択肢**として表示される。本人の「通常AAMと分けたい」意図は諦め
+- 本人依頼:
+  1. HOI4 ランチャー起動 → プレイセット確認(ACM-MD 有効化のまま)
+  2. ゲーム開始後、`logs/setup.log` で `acm_plane_modules.txt` の
+     Module(s) loaded 行が **`#3`**(PLSL + TLS_1 + TLS_2)になっているか確認
+  3. 装備デザイナー戦闘機で以下を確認:
+     - **`fixed_gun_slot`(機関砲スロット)を持つ archetype**(通常戦闘機の
+       small_plane_airframe 系列。medium_plane_airframe は `fixed_gun_slot`
+       持たないので注意)で **PLSL** が機関砲スロットに現れる
+     - **主武器/副武器スロット**の選択肢に **TLS-Zoisite / TLS-Directional**
+       が現れる(通常AAM と並んで)
+  4. 結果を報告
+
+---
+
 ## 2026-07-18 [Claude Code] 副次発見の対策実施 — 本MOD が実は load されていなかった
 
 - ステータス: 対策実施済み / 本人 HOI4 再起動での load 確認待ち

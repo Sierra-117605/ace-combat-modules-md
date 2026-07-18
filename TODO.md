@@ -158,6 +158,11 @@
   - 主武器/副武器用の ACM 独自カテゴリで `parent` / `can_convert_from` を実地検証
 - [x] [Codex] 主武器/副武器向け ACM 独自カテゴリ `acm_plane_special_weapons` へ設計変更
   - TLS 非表示の実機確認を受け、通常ミサイル群と分離した「特殊兵装」枠へ移行
+- [x] [Claude Code] `acm_plane_special_weapons` 独自カテゴリ方式を撤回、
+      `plane_fighter_weapons` に戻す救済(2026-07-18)
+  - 未定義カテゴリで HOI4 が TLS 2件を無音ドロップしていた問題判明
+  - MD replace_path で `acm_plane_airframes.txt` が消滅していた
+  - 詳細は KNOWLEDGE.md「独自モジュールカテゴリを HOI4 に導入する困難」参照
 - [x] [Codex] アイコンを既存流用 or 配置(PLSL試作の一部、上記指示書内)
 - [x] [Codex] ローカライゼーション(英語、日本語)(PLSL試作の一部、上記指示書内)
 - [~] [本人] HOI4 起動・MD β版 + ACM-MD のロード成功(2026-07-18 再検証中)

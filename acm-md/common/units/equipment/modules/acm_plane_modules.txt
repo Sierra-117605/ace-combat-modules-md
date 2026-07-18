@@ -28,7 +28,7 @@ equipment_modules = {
 
 	acm_tls_1 = {
 		abbreviation = "tls1"
-		category = acm_plane_special_weapons
+		category = plane_fighter_weapons
 		sfx = sfx_ui_sd_modules_turret
 		add_equipment_type = fighter
 
@@ -52,7 +52,7 @@ equipment_modules = {
 
 	acm_tls_2 = {
 		abbreviation = "tls2"
-		category = acm_plane_special_weapons
+		category = plane_fighter_weapons
 		parent = acm_tls_1
 		sfx = sfx_ui_sd_modules_turret
 		add_equipment_type = fighter

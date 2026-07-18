@@ -909,6 +909,47 @@ DATABASE.md の典拠URLに準拠する。
 
 ---
 
+#### 独自モジュールカテゴリを HOI4 に導入する困難(2026-07-18 判明)
+
+##### 事象
+
+本MODで独自カテゴリ `acm_plane_special_weapons` を宣言し、TLS 2件を
+このカテゴリで定義したところ、setup.log の Module(s) loaded 行が
+`#1`(PLSL のみ)になり、**TLS 2件は無音でドロップ**された(warning 無し)。
+
+##### 原因
+
+1. HOI4 は「モジュール定義側で category = X と書くだけ」では新カテゴリを
+   登録しない。実際にはそのカテゴリを `allowed_module_categories` で受け入れる
+   archetype(または明示的なカテゴリ定義ファイル)が事前に存在する必要がある
+2. 本MODは `acm-md/common/units/equipment/acm_plane_airframes.txt` で
+   通常戦闘機 archetype に `acm_plane_special_weapons` を追加していたが、
+   **MD descriptor.mod が `replace_path = "common/units/equipment"` を宣言している**
+   ため、本MOD側のこのファイルは HOI4 ロード時に完全消滅
+3. 結果: カテゴリを受け入れる archetype が存在しない → TLS 2件は「宛先の無い
+   モジュール」として黙って捨てられる
+
+##### 対策
+
+- **独自カテゴリを持ち込みたい場合、MD側 airframes を丸ごとコピー+上書き
+  が必要**(replace_path 制約の突破)。ただし MD 更新追従の管理コストが極めて
+  大きく、本MOD方針外
+- 現実的解: **既存 MD カテゴリ(`plane_fighter_weapons` 等)で登録**する。
+  UIグループ分けの見た目は諦め、通常兵装と同じ選択肢として表示される
+- 本MOD で TLS/HPM/機載レールガン/子機ドローン群 は `plane_fighter_weapons` に
+  統一(2026-07-18 修正)
+
+##### 教訓
+
+- **setup.log の `Module(s) loaded 'X.txt' #N` の `#N` はモジュール数**。
+  期待した個数と異なる場合、書式エラーではなく **未定義カテゴリで無視されている**
+  可能性を疑う
+- HOI4 は無効モジュールを警告なく無視するため、error.log だけでは検出できない
+- 「新カテゴリ導入」は airframes 側のスロット拡張とセットでないと機能しない。
+  MD の replace_path 制約下では大幅な設計調整が必要
+
+---
+
 #### MOD配置とランチャー認識の落とし穴(2026-06-28 確定)
 
 P5 PLSL 試作の動作確認時にハマった項目を恒久記録する。本MOD以外のサブMOD
