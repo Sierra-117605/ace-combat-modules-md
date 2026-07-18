@@ -859,6 +859,10 @@ test_drone_plane を装備可能か、生産時に紐づくか、空戦時に子
    - **本MOD `acm-md.mod` も同様の絶対パス書式**のため、実際にゲームに反映されているか
      setup.log で確認する必要あり(未確認、要調査)。 検証セッション時点では
      `acm_plane_modules.txt` の Module(s) loaded 行が setup.log に見当たらなかった
+   - **2026-07-18 確認・対策実施済み**: 本MOD側の setup.log/game.log を
+     Claude Code 側で grep したところ `acm` 関連エントリ 0件で load 未確認を確定。
+     `mod/acm-md.mod` を相対パス `path="mod/acm-md"` に書き直し、`chmod 444`
+     で readonly 化。本人の HOI4 再起動時に load される見込み(未検証、要確認)
 
 2. **`air_attack` は plane equipment でも有効な stat**
    - vanilla `x_plane_airframes.txt` の `cv_fighter_equipment_0` line 441 等で使用

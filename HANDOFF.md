@@ -1,3 +1,40 @@
+## 2026-07-18 [Claude Code] 副次発見の対策実施 — 本MOD が実は load されていなかった
+
+- ステータス: 対策実施済み / 本人 HOI4 再起動での load 確認待ち
+- 関連: `KNOWLEDGE.md` line 855-861「path 絶対パス書き換え問題」、
+  下記 空軍版空母メカ検証結果 の副次発見
+- 経緯:
+  空軍版空母メカ検証(commit `2baf544`)の副次発見に「本MOD `acm-md.mod` も
+  同様の絶対パス書式のため、実際にゲームに反映されているか setup.log で
+  確認する必要あり(未確認、要調査)」との指摘あり。本セッションで確認したところ:
+- ログ確認結果(HOI4 起動済み、logs/setup.log と logs/game.log を grep):
+  - `acm` / `acm-md` / `acm_plane_modules` / `pulse_laser` / `tls_1` / `tls_2` の
+    エントリが **setup.log と game.log の両方で 0件**
+  - つまり **本MOD ACM-MD は HOI4 に一度も load されていなかった**
+  - v0.1.0 タグ時の本人「問題ない」報告は「ロード成功」ではなく
+    「他に問題が起きなかった」だけの意味(PLSL 装備画面での目視確認は未実施)
+- 対策実施(2026-07-18):
+  1. `mod/acm-md.mod` の `path=` を絶対パス
+     `C:/Users/tkmuh/OneDrive/ドキュメント/Paradox Interactive/Hearts of Iron IV/mod/acm-md`
+     から相対パス `mod/acm-md` に書き直し
+  2. `chmod 444`(readonly)を設定して launcher の絶対パス書き換えを阻止
+  3. リポジトリ側 `acm-md/descriptor.mod` は path 行を持たない構造で正しい(変更不要)
+- 本人依頼:
+  1. HOI4 ランチャーを起動 → プレイセットで ACM-MD 有効化のままで起動
+  2. ゲーム起動後すぐ終了して以下を確認:
+     - `logs/setup.log` に `acm_plane_modules.txt` の `Module(s) loaded` 行が
+       出るか
+     - `logs/error.log` に `acm_pulse_laser_1` / `acm_tls_1` / `acm_tls_2` の
+       load エラーが無いか
+     - 装備デザイナー(戦闘機)を開いて機関砲スロットに PLSL、主武器/副武器の
+       特殊兵装グループに TLS が出るか
+  3. 結果を報告
+- 影響:
+  - **v0.1.0 タグの「動作確認済み」は事実誤認**。今回の対策後に再検証する必要あり
+  - 対策が効いていれば PLSL/TLS が装備デザイナーに現れ、真の意味での動作確認になる
+
+---
+
 ## 2026-07-18 [実験セッション → 本MOD] 空軍版空母メカ検証結果: B判定(実現不可)
 
 - ステータス: 検証完了 / 本MOD 側で方針判断待ち
