@@ -1,9 +1,9 @@
 ### ACM-MD prototype aircraft modules
 
 equipment_modules = {
-	limit = {
-		has_dlc = "By Blood Alone"
-	}
+	# limit = { has_dlc = "By Blood Alone" } は 2026-07-18 一時的に外して
+	# 「モジュールが装備デザイナーに現れるか」の切り分けを行う。
+	# BBA が真に必要と判明したら復帰する。
 
 	acm_pulse_laser_1 = {
 		abbreviation = "plsl"
